@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+ 
+<item android:id="@+id/menuConfigurar" android:title="Configurar"
+      android:icon="@drawable/configurar32x32"></item>
+<item android:id="@+id/menuBuscar" android:title="Buscar"
+      android:icon="@drawable/buscar32x32"></item>      
+<item android:id="@+id/menuAcercaDe" android:title="Acerca de"
+      android:icon="@drawable/acercade32x32"></item>
+</menu>
