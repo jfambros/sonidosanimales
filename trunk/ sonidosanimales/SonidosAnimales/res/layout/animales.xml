@@ -37,7 +37,7 @@
 	android:layout_height="wrap_content"
 	android:text="          " />
 <ImageView
-	android:id="@+id/tvSiguiente"
+	android:id="@+id/ivSiguiente"
 	android:layout_width="48px"
 	android:layout_height="48px"
 	android:src="@drawable/siguiente48x48" />
