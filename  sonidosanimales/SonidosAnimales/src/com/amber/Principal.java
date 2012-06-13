@@ -21,6 +21,7 @@ public class Principal extends Activity {
     	Runnable runnable = new Runnable(){
     	public void run(){
     			//validaciones después de terminar la página de splash
+    		
 		    	Intent intent = new Intent(Principal.this, Animales.class);
 		    	startActivity(intent);
 		    	finish();

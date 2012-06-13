@@ -1,17 +1,16 @@
 package com.amber;
 
+import java.io.IOException;
 import java.util.HashMap;
 
-import com.amber.utils.AccesoDatos;
-import com.amber.utils.Animal;
-import com.amber.utils.CreaBD;
-import android.R.anim;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import android.app.Activity;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -22,6 +21,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.amber.utils.AccesoDatos;
+import com.amber.utils.Animal;
+import com.amber.utils.CreaBD;
 
 public class Animales extends Activity{
 	private TextView tvNombreAnimal;
@@ -51,8 +54,11 @@ public class Animales extends Activity{
 		tvNombreAnimal = (TextView)findViewById(R.id.tvNombre);
 		ivImagenAnimal = (ImageView)findViewById(R.id.ivImagenAnimal);
 
-		
+		try{
 		inicioDatos();
+		}catch (Exception e) {
+			Log.e("error inicio", e.toString());
+		}
 	
 		//llenaMapa();
 		
@@ -89,47 +95,47 @@ public class Animales extends Activity{
 		}
 	};
 	
-	//Llenado de datos
-	private void llenaMapa(){
-		hmAnimal = new HashMap<Integer, Animal>();
-	}
-	private void inicioDatos(){
+	private void inicioDatos() throws SAXException, IOException, ParserConfigurationException{
 		CreaBD creaBD = new CreaBD(getApplicationContext(), nombreBD, null, 1);
 		SQLiteDatabase db = creaBD.getWritableDatabase();
 		accesoDatos = new AccesoDatos(getApplicationContext(), nombreBD);
-		accesoDatos.insertaDatos("animal");	
-		accesoDatos = new AccesoDatos(this, nombreBD);
-		cursorDatos = accesoDatos.seleccionaDatos("Animal");
+		accesoDatos.eliminaTabla("animal");
+		accesoDatos.insertaDatos("animal", this);	
+		cursorDatos = accesoDatos.seleccionaDatos("animal");
 		if (cursorDatos.moveToFirst()){
-			llenaObjetos();
+			llenaObjetos(); 
 		}
 	}
 	
 	private void cambioAnimalSig(){
-		cursorDatos.moveToNext();
-		if (cursorDatos.isLast()){
+		if (!cursorDatos.isLast()){
+			cursorDatos.moveToNext();
+			llenaObjetos();
+		}else{
 			cursorDatos.moveToFirst();
+			llenaObjetos();
 		}
 
-		llenaObjetos();
 	}
 	
 	private void cambioAnimalAnt(){
-		cursorDatos.moveToPrevious();
-		if (cursorDatos.isFirst()){
+		if (!cursorDatos.isFirst()){
+			cursorDatos.moveToPrevious();
+			llenaObjetos();
+		}else{
 			cursorDatos.moveToLast();
-		}
-		llenaObjetos();		
+			llenaObjetos();
+		}	
 	}
 	
 	private void llenaObjetos(){
 		int iNombreAnimal = cursorDatos.getColumnIndexOrThrow("nombre");
-		int iFiguraAnimal = cursorDatos.getColumnIndexOrThrow("drawable");
-		int iSonidoAnimal = cursorDatos.getColumnIndexOrThrow("sonido");
+		int iFiguraAnimal = cursorDatos.getColumnIndexOrThrow("drawableSonido");
+		int iSonidoAnimal = cursorDatos.getColumnIndexOrThrow("drawableSonido");
 		
-		String sNombreAnimal = getString(iNombreAnimal);
-		String sFiguraAnimal = getString(iFiguraAnimal);
-		String sSonidoAnimal = getString(iSonidoAnimal);
+		String sNombreAnimal = cursorDatos.getString(iNombreAnimal);
+		String sFiguraAnimal = cursorDatos.getString(iFiguraAnimal);
+		String sSonidoAnimal = cursorDatos.getString(iSonidoAnimal);
 		Log.i("Llenando objetos", sNombreAnimal);
 		
 		tvNombreAnimal.setText(sNombreAnimal);
