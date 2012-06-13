@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Datos>
+<Animales>
+	<animal>
+		<nombre>Caballo</nombre>
+		<drawableSonido>caballo</drawableSonido>
+	</animal>
+	<animal>
+		<nombre>Pato</nombre>
+		<drawableSonido>pato</drawableSonido>
+	</animal>
+</Animales>
+</Datos>
