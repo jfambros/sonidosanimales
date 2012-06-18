@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+ <RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent">
 <LinearLayout
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:background="#ffffffff"
 	android:orientation="vertical"
-	xmlns:android="http://schemas.android.com/apk/res/android">
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	>
+	<LinearLayout
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:background="#ff99ccff">
+	
 <LinearLayout
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:orientation="horizontal"
-	android:layout_gravity="center_horizontal">
+	android:layout_gravity="center_horizontal"
+	>
 <TableLayout
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
@@ -19,49 +32,92 @@
 	android:layout_height="wrap_content"
 	android:orientation="horizontal">
 <ImageView
-	android:id="@+id/ivAnterior"
-	android:layout_width="48px"
-	android:layout_height="48px"
+	android:id="@+id/ivAnterior2"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
 	android:src="@drawable/anterior48x48" />
 <TextView
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:text="          " />
 <ImageView
-	android:id="@+id/ivMenu"
-	android:layout_width="48px"
-	android:layout_height="48px" 
+	android:id="@+id/ivMenu2"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content" 
 	android:src="@drawable/menu48x48"/>
 <TextView
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:text="          " />
 <ImageView
-	android:id="@+id/ivSiguiente"
-	android:layout_width="48px"
-	android:layout_height="48px"
+	android:id="@+id/ivSiguiente2"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
 	android:src="@drawable/siguiente48x48" />
 </TableRow>
 </TableLayout>
 </LinearLayout>
+</LinearLayout>
 <TextView
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"/>
+
+	
+
+ 
+
+</LinearLayout>
+
+<LinearLayout
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:layout_centerVertical="true"
+	android:layout_alignParentLeft="true"
+>
+
+
 <TextView
-	android:id="@+id/tvNombre"
+	android:id="@+id/tvNombre2"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:text="nombreAnimal"
-	android:textSize="18sp"
+	android:textSize="20sp"
+	android:textStyle="bold"
 	android:textColor="#ff000000"
 	android:layout_gravity="center_horizontal" />
 <TextView
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"/>
 <ImageView
-	android:id="@+id/ivImagenAnimal"
+	android:id="@+id/ivImagenAnimal2"
 	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:layout_gravity="center_horizontal" />
+	android:layout_height="fill_parent"
+	android:layout_gravity="center_horizontal"
+	android:src="@drawable/buho"
+	 />
+
+
 </LinearLayout>
+	<RelativeLayout 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:background="#ff99ccff" >
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			xmlns:android="http://schemas.android.com/apk/res/android">
+			<ImageView android:id="@+id/ivAleatorio2" 
+			android:src="@drawable/aleatorio48x48"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"/>
+		</LinearLayout>
+
+	
+	    </RelativeLayout>
+</RelativeLayout>
+
 
