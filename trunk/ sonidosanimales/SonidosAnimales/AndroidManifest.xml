@@ -14,5 +14,6 @@
             </intent-filter>
         </activity>
 	<activity android:name="Animales"></activity>
+	<activity android:name="Adivina"></activity>	
     </application>
 </manifest>

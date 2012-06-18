@@ -9,6 +9,7 @@ public class CreaBD extends SQLiteOpenHelper{
 	private String tablaAnimal ="create table animal(_id integer not null, " +
 			"nombre text not null, " +
 			"drawableSonido text not null, " +
+			"idioma text not null,"+
 			"constraint idPk primary key (_id));";
 
 	

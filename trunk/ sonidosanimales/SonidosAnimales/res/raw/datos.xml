@@ -2,12 +2,44 @@
 <Datos>
 <Animales>
 	<animal>
+		<nombre>Buho</nombre>
+		<drawableSonido>buho</drawableSonido>
+		<idioma>es</idioma>
+	</animal>
+	<animal>
 		<nombre>Caballo</nombre>
 		<drawableSonido>caballo</drawableSonido>
+		<idioma>es</idioma>
+	</animal>
+	<animal>
+		<nombre>Cerdo</nombre>
+		<drawableSonido>cerdo</drawableSonido>
+		<idioma>es</idioma>
+	</animal>
+	<animal>
+		<nombre>Gato</nombre>
+		<drawableSonido>gato</drawableSonido>
+		<idioma>es</idioma>
+	</animal>
+	<animal>
+		<nombre>Oso</nombre>
+		<drawableSonido>oso</drawableSonido>
+		<idioma>es</idioma>
 	</animal>
 	<animal>
 		<nombre>Pato</nombre>
 		<drawableSonido>pato</drawableSonido>
+		<idioma>es</idioma>
 	</animal>
+	<animal>
+		<nombre>Perro</nombre>
+		<drawableSonido>perro</drawableSonido>
+		<idioma>es</idioma>
+	</animal>
+	<animal>
+		<nombre>Vaca</nombre>
+		<drawableSonido>vaca</drawableSonido>
+		<idioma>es</idioma>
+	</animal>	
 </Animales>
 </Datos>

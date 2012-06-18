@@ -69,6 +69,10 @@ public class RecorrerXML {
                 if (etiqueta.equals("drawableSonido"))
                 {
                     animal.setDrawableSonidoAnimal(dato.getFirstChild().getNodeValue());
+                }else 
+                if (etiqueta.equals("idioma"))
+                {
+                    animal.setIdioma(dato.getFirstChild().getNodeValue());
                 }
                 
             }
