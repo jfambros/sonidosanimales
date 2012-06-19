@@ -1,24 +1,30 @@
 package com.amber;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Random;
 
-import android.R.integer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amber.utils.AccesoDatos;
 import com.amber.utils.Animal;
@@ -27,10 +33,11 @@ import com.amber.utils.DatosAnimalView;
 public class Adivina extends Activity{
 	private AccesoDatos accesoDatos;
 	private Cursor cursor;
-	private String sSonidoAnimal;
+	private String sonidoAnimalAleatorio;
 	private GridView gvAnimales;
 	private ArrayList<Animal> listaAnimales;
-	private ArrayList<Integer> listaNumero;
+	private int iNumSonidoAleatorio;
+	private MediaPlayer mediaPlayerSonido;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,28 +48,68 @@ public class Adivina extends Activity{
 		gvAnimales = (GridView)findViewById(R.id.gridViewAdivina);
 		((GridView) findViewById(R.id.gridViewAdivina)).setOnItemClickListener(clickListGridView);
 		
-		obtenerAnimales(2);
-		/*
+		ImageView ivSonidoAnimal = (ImageView)findViewById(R.id.ivSonidoAdivina);
+		ivSonidoAnimal.setOnClickListener(ivSonidoAnimalCL);
+		
+		obtenerAnimales(3);
+		
 		try{
 			gvAnimales.setAdapter(new ImageAdapter(this, listaAnimales.size(), listaAnimales));
 		}
 		catch (Exception e) {
 			Log.e("Error inicia adivina", e.toString());
 		}
-		*/
-
-		
-		for (int i=0; i<5; i++){
-			Log.i("generando", Integer.toString(genera(cursor.getCount())));
-		}
+		//sonido(sonidoAnimalAleatorio);
 	}
 	
-	private void obtenerAnimales(int numero){
+	@Override
+	protected void onStop() {
+		super.onStop();
+		cursor.close();
+	}
+	
+	private OnClickListener ivSonidoAnimalCL = new OnClickListener() {
+		
+		public void onClick(View arg0) {
+			sonido(sonidoAnimalAleatorio);
+		}
+	};
+	
+	private void obtenerAnimales(int tam){
+		HashSet<Integer> total = new HashSet<Integer>();
+		Iterator<Integer> iterator;
+		int cont=0;
+		
 		accesoDatos = new AccesoDatos(this, "Animales.db");
 		cursor = accesoDatos.seleccionaDatos("animal");
 		listaAnimales = new ArrayList<Animal>();
-		int numAleatorios[] = new int[numero];
-		int totalReg = cursor.getCount();
+		total = genera(tam);
+		iterator = total.iterator();
+		
+		while (iterator.hasNext()){
+			cursor.moveToPosition(Integer.parseInt(iterator.next().toString()));
+			int iNombreAnimal = cursor.getColumnIndexOrThrow("nombre");
+			int iFiguraAnimal = cursor.getColumnIndexOrThrow("drawableSonido");
+			int iSonidoAnimal = cursor.getColumnIndexOrThrow("drawableSonido");
+			//int iIdioma = cursor.getColumnIndexOrThrow("idioma");
+			
+			String sNombreAnimal = cursor.getString(iNombreAnimal);
+			String sFiguraAnimal = cursor.getString(iFiguraAnimal);
+			String sSonidoAnimal = cursor.getString(iSonidoAnimal);
+			//String sIdioma = cursor.getString(iIdioma);
+			if (cont == iNumSonidoAleatorio){
+				sonidoAnimalAleatorio = sSonidoAnimal;
+				Log.i("Sonido animal", sonidoAnimalAleatorio);
+			}
+			
+			Animal animal = new Animal();
+			animal.setNombreAnimal(sNombreAnimal);
+			animal.setDrawableSonidoAnimal(sFiguraAnimal);
+			//animal.setIdioma(sIdioma);
+			
+			listaAnimales.add(animal);
+			cont++;
+		}	
 		
 		
 
@@ -96,9 +143,16 @@ public class Adivina extends Activity{
 	
 	private OnItemClickListener clickListGridView = new OnItemClickListener() {
 
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-				long arg3) {
-			// TODO Auto-generated method stub
+		public void onItemClick(AdapterView<?> parent, View view, int posicion,	long id) {
+			String nombre = ((Animal)(parent.getAdapter().getItem(posicion))).getNombreAnimal();
+			Log.i("Seleccionado", nombre);
+			String sonido = ((Animal)parent.getAdapter().getItem(posicion)).getDrawableSonidoAnimal();
+			if (sonido.equals(sonidoAnimalAleatorio)){
+				Toast.makeText(Adivina.this, "Muy bien", Toast.LENGTH_SHORT).show();
+			}else{
+				Toast.makeText(Adivina.this, "Intenta de nuevo", Toast.LENGTH_SHORT).show();
+			}
+				
 			
 		}
 	};
@@ -126,6 +180,7 @@ public class Adivina extends Activity{
 		}
 
 		public Object getItem(int posicion) {
+
 			return listaCat.get(posicion);
 		}
 
@@ -166,24 +221,39 @@ public class Adivina extends Activity{
 		
 	}
 
-	private int genera(int tam){
-		if(listaNumero.size() < tam ){//Aun no se han generado todos los numeros
-            int numeroA = (int)(Math.random()*(tam));//genero un numero
-            if(listaNumero.isEmpty()){//si la lista esta vacia
-                listaNumero.add(numeroA);
-                return numeroA;
-            }else{//si no esta vacia
-                if(listaNumero.contains(numeroA)){//Si el numero que generé esta contenido en la lista
-                    return genera(tam);//recursivamente lo mando a generar otra vez
-                }else{//Si no esta contenido en la lista
-                    listaNumero.add(numeroA);
-                    return numeroA;
-                }
-            }
-        }else{// ya se generaron todos los numeros
-            return -1;
-        }		
-	}
+	private HashSet<Integer> genera(int tam){
+		HashSet<Integer> totalAleatorio=new HashSet<Integer>();
+		int cont=1;
+		while (cont<=tam) {
+			  Integer al=new Integer(new java.util.Random().nextInt(cursor.getCount()));
+			  if(totalAleatorio.add(al)){
+				  cont++;
+			  }
+	     }
+		//al azar el sonido
+		Random random = new Random();
+		iNumSonidoAleatorio = random.nextInt(tam);
+		Log.i("numero sonido", Integer.toString(iNumSonidoAleatorio));
+
+
+		return totalAleatorio;
+	}		
 	
+	
+	OnCompletionListener completionList = new OnCompletionListener() {
+		
+		public void onCompletion(MediaPlayer mp) {
+			mediaPlayerSonido.release();
+		}
+	};
+	
+	private void sonido(String sSonidoAnimal){
+    	int resIDSonido = getResources().getIdentifier(sSonidoAnimal, "raw", getPackageName());
+    	mediaPlayerSonido = MediaPlayer.create(Adivina.this, resIDSonido);
+    	mediaPlayerSonido.start();
+    	mediaPlayerSonido.setLooping(false);
+    	mediaPlayerSonido.setOnCompletionListener(completionList);	
+    	
+	} 
 
 }

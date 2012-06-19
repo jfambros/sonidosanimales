@@ -122,6 +122,10 @@ public class Animales extends Activity{
 		// TODO Auto-generated method stub
 		super.onDestroy();
 	}
+	@Override
+	protected void onStop() {
+		super.onStop();
+	}
 	//Menú
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    //Alternativa 1
@@ -256,8 +260,7 @@ public class Animales extends Activity{
     	mediaPlayerSonido = MediaPlayer.create(Animales.this, resIDSonido);
     	mediaPlayerSonido.start();
     	mediaPlayerSonido.setLooping(false);
-    	mediaPlayerSonido.setOnCompletionListener(completionList);	
-    	
+    	mediaPlayerSonido.setOnCompletionListener(completionList);	  	
 	} 
 	
 	private void aleatorio(){
