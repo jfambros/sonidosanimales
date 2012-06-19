@@ -68,7 +68,7 @@
 
 	  <TextView 
 	  android:id="@+id/tvMensajeAdivina" 
-	  android:text="¿Qué animal hace el ruido?"
+	  android:text="¿Qué animal hace éste sonido?"
 	  android:layout_centerHorizontal="true"
 	  android:layout_width="wrap_content"
 	  android:layout_height="wrap_content"
@@ -101,14 +101,15 @@ android:layout_width="wrap_content"
   />
 
 <!-- Poner layout y los animales -->
+
        <GridView 
 	      android:id="@+id/gridViewAdivina" android:layout_width="fill_parent"
 	      android:layout_height="fill_parent" android:numColumns="auto_fit"
 	      android:verticalSpacing="10dp" android:horizontalSpacing="10dp"
 	      android:columnWidth="100dp" android:stretchMode="columnWidth"
 	      android:background="#ffffff" />
-	
-</RelativeLayout>	
+
+</RelativeLayout>
 	 
     
 </RelativeLayout>
