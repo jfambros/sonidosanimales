@@ -16,13 +16,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +43,6 @@ public class Adivina extends Activity{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.adivina);
 		
@@ -50,7 +51,6 @@ public class Adivina extends Activity{
 		
 		ImageView ivSonidoAnimal = (ImageView)findViewById(R.id.ivSonidoAdivina);
 		ivSonidoAnimal.setOnClickListener(ivSonidoAnimalCL);
-		
 		obtenerAnimales(3);
 		
 		try{
@@ -65,7 +65,12 @@ public class Adivina extends Activity{
 	@Override
 	protected void onStop() {
 		super.onStop();
-		cursor.close();
+		/*
+		if (!cursor.isClosed())
+			cursor.close();
+		if (mediaPlayerSonido.isPlaying())
+			mediaPlayerSonido.release();
+			*/
 	}
 	
 	private OnClickListener ivSonidoAnimalCL = new OnClickListener() {
@@ -159,14 +164,12 @@ public class Adivina extends Activity{
 	
 	public class ImageAdapter extends BaseAdapter{
 		private Context myContext; 
-		private int numCat;
 		private ArrayList<Animal> listaCat;
 		private Animal imagenes[];	
 		private LayoutInflater inflater; 
 		
         public ImageAdapter(Context c, int numCat, ArrayList<Animal> listaCat) { 
         	this.myContext = c;
-        	this.numCat = numCat;
         	this.listaCat = listaCat;
         	imagenes = new Animal[numCat]; 
         	for (int cont=0; cont<numCat; cont++){
@@ -203,7 +206,6 @@ public class Adivina extends Activity{
 				holder = (DatosAnimalView) convertView.getTag(); 
 			} 
 			try{
-				ImageView imagen = new ImageView(this.myContext);
 				Resources res = getResources();
 				
 				int resID = getResources().getIdentifier(imagenes[posicion].getDrawableSonidoAnimal() , "drawable", getPackageName());
@@ -255,5 +257,24 @@ public class Adivina extends Activity{
     	mediaPlayerSonido.setOnCompletionListener(completionList);	
     	
 	} 
+	
+	public int measureCellWidth( Context context, View cell )
+	{
 
+	    // We need a fake parent
+	    RelativeLayout buffer = new RelativeLayout( context );
+	    android.widget.AbsListView.LayoutParams layoutParams = 
+	    		new  android.widget.AbsListView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+	    buffer.addView( cell, layoutParams);
+
+	    cell.forceLayout();
+	    cell.measure(1000, 1000);
+
+	    int width = cell.getMeasuredWidth();
+
+	    buffer.removeAllViews();
+
+	    return width;
+	}
+	
 }
