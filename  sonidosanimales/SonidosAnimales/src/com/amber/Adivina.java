@@ -7,12 +7,14 @@ import java.util.Random;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
+import android.provider.ContactsContract.CommonDataKinds.Im;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,8 +35,8 @@ import com.amber.utils.Animal;
 import com.amber.utils.DatosAnimalView;
 
 public class Adivina extends Activity{
-	private AccesoDatos accesoDatos;
-	private Cursor cursor;
+	private static AccesoDatos accesoDatos;
+	private  Cursor cursor;
 	private String sonidoAnimalAleatorio;
 	private GridView gvAnimales;
 	private ArrayList<Animal> listaAnimales;
@@ -51,10 +53,20 @@ public class Adivina extends Activity{
 		
 		ImageView ivSonidoAnimal = (ImageView)findViewById(R.id.ivSonidoAdivina);
 		ivSonidoAnimal.setOnClickListener(ivSonidoAnimalCL);
-		obtenerAnimales(3);
+		ImageView ivRegresaAdivina = (ImageView)findViewById(R.id.ivRegresaAdivina);
+		ivRegresaAdivina.setOnClickListener(ivRegresaAdivinaCL);
+		
+		ImageView ivRecargar = (ImageView)findViewById(R.id.ivRecargaAdivina);
+		ivRecargar.setOnClickListener(ivRecargarCL);
+		
+		TextView tvMensajeAdivina = (TextView)findViewById(R.id.tvMensajeAdivina);
+		tvMensajeAdivina.setOnClickListener(tvMensajeAdivinaCL);
+
+		//TextView tvMensajeSonido = (TextView)findViewById()
 		
 		try{
-			gvAnimales.setAdapter(new ImageAdapter(this, listaAnimales.size(), listaAnimales));
+
+			obtenerAnimales(3);
 		}
 		catch (Exception e) {
 			Log.e("Error inicia adivina", e.toString());
@@ -63,16 +75,37 @@ public class Adivina extends Activity{
 	}
 	
 	@Override
+	protected void onPause() {
+		super.onPause();		
+	}
+	@Override
 	protected void onStop() {
 		super.onStop();
-		/*
-		if (!cursor.isClosed())
-			cursor.close();
-		if (mediaPlayerSonido.isPlaying())
-			mediaPlayerSonido.release();
-			*/
+
 	}
 	
+	private OnClickListener tvMensajeAdivinaCL = new OnClickListener() {
+		
+		public void onClick(View arg0) {
+			sonido(sonidoAnimalAleatorio);			
+		}
+	};
+	private OnClickListener ivRecargarCL = new OnClickListener() {
+		
+		public void onClick(View arg0) {
+			obtenerAnimales(3);
+		}
+	};
+	
+	private OnClickListener ivRegresaAdivinaCL = new OnClickListener() {
+		
+		public void onClick(View arg0) {
+			cierra();
+			Intent intent = new Intent();
+			intent.setClass(Adivina.this, Animales.class);
+			startActivity(intent); 
+		}
+	};
 	private OnClickListener ivSonidoAnimalCL = new OnClickListener() {
 		
 		public void onClick(View arg0) {
@@ -80,44 +113,59 @@ public class Adivina extends Activity{
 		}
 	};
 	
+	private void cierra(){
+		//accesoDatos.cierraBase();
+		accesoDatos = null;
+		cursor.close();
+	}
+	
+	private void inicioDatos(){
+		accesoDatos = new AccesoDatos(this, "Animales.db");
+		accesoDatos.abrirBase();
+		cursor = accesoDatos.seleccionaDatos("animal");
+		cursor.moveToFirst();
+		accesoDatos.cierraBase();
+	}
+	
+	
 	private void obtenerAnimales(int tam){
 		HashSet<Integer> total = new HashSet<Integer>();
 		Iterator<Integer> iterator;
 		int cont=0;
-		
-		accesoDatos = new AccesoDatos(this, "Animales.db");
-		cursor = accesoDatos.seleccionaDatos("animal");
-		listaAnimales = new ArrayList<Animal>();
-		total = genera(tam);
-		iterator = total.iterator();
-		
-		while (iterator.hasNext()){
-			cursor.moveToPosition(Integer.parseInt(iterator.next().toString()));
-			int iNombreAnimal = cursor.getColumnIndexOrThrow("nombre");
-			int iFiguraAnimal = cursor.getColumnIndexOrThrow("drawableSonido");
-			int iSonidoAnimal = cursor.getColumnIndexOrThrow("drawableSonido");
-			//int iIdioma = cursor.getColumnIndexOrThrow("idioma");
-			
-			String sNombreAnimal = cursor.getString(iNombreAnimal);
-			String sFiguraAnimal = cursor.getString(iFiguraAnimal);
-			String sSonidoAnimal = cursor.getString(iSonidoAnimal);
-			//String sIdioma = cursor.getString(iIdioma);
-			if (cont == iNumSonidoAleatorio){
-				sonidoAnimalAleatorio = sSonidoAnimal;
-				Log.i("Sonido animal", sonidoAnimalAleatorio);
-			}
-			
-			Animal animal = new Animal();
-			animal.setNombreAnimal(sNombreAnimal);
-			animal.setDrawableSonidoAnimal(sFiguraAnimal);
-			//animal.setIdioma(sIdioma);
-			
-			listaAnimales.add(animal);
-			cont++;
-		}	
-		
-		
 
+		inicioDatos();
+			listaAnimales = new ArrayList<Animal>();
+			total = genera(tam);
+			iterator = total.iterator();
+			
+			
+			while (iterator.hasNext()){
+				cursor.moveToPosition(Integer.parseInt(iterator.next().toString()));
+				int iNombreAnimal = cursor.getColumnIndexOrThrow("nombre");
+				int iFiguraAnimal = cursor.getColumnIndexOrThrow("drawableSonido");
+				int iSonidoAnimal = cursor.getColumnIndexOrThrow("drawableSonido");
+				//int iIdioma = cursor.getColumnIndexOrThrow("idioma");
+				
+				String sNombreAnimal = cursor.getString(iNombreAnimal);
+				String sFiguraAnimal = cursor.getString(iFiguraAnimal);
+				String sSonidoAnimal = cursor.getString(iSonidoAnimal);
+				//String sIdioma = cursor.getString(iIdioma);
+				if (cont == iNumSonidoAleatorio){
+					sonidoAnimalAleatorio = sSonidoAnimal;
+					Log.i("Sonido animal", sonidoAnimalAleatorio);
+				}
+				
+				Animal animal = new Animal();
+				animal.setNombreAnimal(sNombreAnimal);
+				animal.setDrawableSonidoAnimal(sFiguraAnimal);
+				//animal.setIdioma(sIdioma);
+				
+				listaAnimales.add(animal);
+				cont++;
+			}
+
+		gvAnimales.setAdapter(new ImageAdapter(this, listaAnimales.size(), listaAnimales));
+		cursor.close();
 		//cursor.moveToPosition(numAleatorio);
 /*
 		if (cursor.moveToFirst()){
@@ -150,7 +198,6 @@ public class Adivina extends Activity{
 
 		public void onItemClick(AdapterView<?> parent, View view, int posicion,	long id) {
 			String nombre = ((Animal)(parent.getAdapter().getItem(posicion))).getNombreAnimal();
-			Log.i("Seleccionado", nombre);
 			String sonido = ((Animal)parent.getAdapter().getItem(posicion)).getDrawableSonidoAnimal();
 			if (sonido.equals(sonidoAnimalAleatorio)){
 				Toast.makeText(Adivina.this, "Muy bien", Toast.LENGTH_SHORT).show();
@@ -235,9 +282,6 @@ public class Adivina extends Activity{
 		//al azar el sonido
 		Random random = new Random();
 		iNumSonidoAleatorio = random.nextInt(tam);
-		Log.i("numero sonido", Integer.toString(iNumSonidoAleatorio));
-
-
 		return totalAleatorio;
 	}		
 	
@@ -276,5 +320,7 @@ public class Adivina extends Activity{
 
 	    return width;
 	}
+	
+
 	
 }

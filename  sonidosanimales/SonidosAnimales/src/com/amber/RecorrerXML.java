@@ -15,7 +15,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.amber.utils.Animal;
 
@@ -55,7 +54,6 @@ public class RecorrerXML {
 
             //Obtenemos la lista de datos del animal actual
             NodeList datosAnimal = item.getChildNodes();
-            Log.i("total:", Integer.toString(datosAnimal.getLength()));
             //Procesamos cada dato del animal
             for (int j=0; j<datosAnimal.getLength(); j++)
             {
