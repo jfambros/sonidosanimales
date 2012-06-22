@@ -30,29 +30,26 @@ public class AccesoDatos {
 		this.nombreBD = nombreBd;
 	}
 	
+	public void abrirBase(){
+		sqlOperaciones = context.openOrCreateDatabase(nombreBD, 1, null);	
+	}
 	public void creaTabla(){
-		sqlOperaciones = context.openOrCreateDatabase(nombreBD, 1, null);
 		sqlOperaciones.execSQL("drop table if EXISTS animal");
-		sqlOperaciones.execSQL(tablaAnimal);
-
-		
+		sqlOperaciones.execSQL(tablaAnimal);		
 	}
 	public Cursor seleccionaDatos(String tabla){
-		sqlOperaciones = context.openOrCreateDatabase(nombreBD, 1, null);
 		Cursor cursor = sqlOperaciones.query(tabla, new String[]{"_id", "nombre","drawableSonido"}, null, null, null, null, null);
 
 		return cursor;
 	}
 	
 	public Cursor seleccionaUnDatoNombre(String tabla, String nombre){
-		sqlOperaciones = context.openOrCreateDatabase(nombreBD, 1, null);
 		Cursor cursor = sqlOperaciones.query(tabla, new String[]{"_id", "nombre","drawableSonido"}, "nombre = '"+nombre+"'", null, null, null, null);
 
 		return cursor;		
 	}
 	
 	public Cursor seleccionaNumeroDatos(String tabla, String numeroFilas){
-		sqlOperaciones = context.openOrCreateDatabase(nombreBD, 1, null);
 		Cursor cursor = sqlOperaciones.query(tabla, new String[]{"_id", "nombre","drawableSonido"}, null, null, null, null, null, numeroFilas);
 		return cursor;
 	}
@@ -60,7 +57,6 @@ public class AccesoDatos {
 	public void insertaDatos(String tabla, Activity activity) throws SAXException, IOException, ParserConfigurationException{
 		RecorrerXML recorrerXML = new RecorrerXML(activity);
 		ArrayList<Animal> arrayListAnimales = recorrerXML.obtenerDatos();
-		sqlOperaciones = context.openOrCreateDatabase(nombreBD, 1, null);
 		for (int i = 0; i < arrayListAnimales.size(); i++){
 			Animal animal = arrayListAnimales.get(i);
 			ContentValues contentValues = new ContentValues();
@@ -73,8 +69,6 @@ public class AccesoDatos {
 	}
 	
 	public void eliminaTabla(String tabla){
-		
-		sqlOperaciones = context.openOrCreateDatabase(nombreBD, 1, null);
 		sqlOperaciones.delete(tabla, "", null);
 	}
 	

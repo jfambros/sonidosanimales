@@ -77,6 +77,8 @@ public class Animales extends Activity{
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
 	       case R.id.menuAdivinar:
+	    	   cerrar();
+	    	   inicio = true; 
 	           Intent intent = new Intent();
 	           intent.setClass(Animales.this, Adivina.class);
 	           startActivity(intent);
@@ -86,6 +88,10 @@ public class Animales extends Activity{
 		return true;
 	}
 	
+	private void cerrar(){
+		cursorDatos.close();
+		accesoDatos.cierraBase();
+	}
 	/*
 	protected void onStop() {
 		// TODO Auto-generated method stub
@@ -125,6 +131,7 @@ public class Animales extends Activity{
 	@Override
 	protected void onStop() {
 		super.onStop();
+		
 	}
 	//Menú
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -192,12 +199,14 @@ public class Animales extends Activity{
 		
 		accesoDatos = new AccesoDatos(getApplicationContext(), nombreBD);
 		//accesoDatos.eliminaTabla("animal");
+		accesoDatos.abrirBase();
 		accesoDatos.creaTabla();
 		accesoDatos.insertaDatos("animal", this);	
 		cursorDatos = accesoDatos.seleccionaDatos("animal");
 		if (cursorDatos.moveToFirst()){
 			llenaObjetos(); 
 		}
+		accesoDatos.cierraBase();
 		inicio = false;
 	}
 	

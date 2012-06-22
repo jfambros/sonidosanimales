@@ -7,7 +7,7 @@ import android.os.Handler;
 
 public class Principal extends Activity {
     /** Called when the activity is first created. */
-	private int SPLASH_DISPLAY_LENGTH = 3000;
+	private int SPLASH_DISPLAY_LENGTH = 1000;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
