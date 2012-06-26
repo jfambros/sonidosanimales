@@ -80,7 +80,7 @@ public class Animales extends Activity{
 	    	   cerrar();
 	    	   inicio = true; 
 	           Intent intent = new Intent();
-	           intent.setClass(Animales.this, Adivina.class);
+	           intent.setClass(Animales.this, AdivinaLista.class);
 	           startActivity(intent);
 	    	   return true; 
 		}
@@ -211,9 +211,6 @@ public class Animales extends Activity{
 	}
 	
 	private void cambioAnimalSig(){
-
-			mediaPlayerSonido.release();
-
 		if (!cursorDatos.isLast()){
 			cursorDatos.moveToNext();
 			llenaObjetos();
@@ -225,8 +222,6 @@ public class Animales extends Activity{
 	}
 	
 	private void cambioAnimalAnt(){
-
-			mediaPlayerSonido.release();
 
 		if (!cursorDatos.isFirst()){
 			cursorDatos.moveToPrevious();
@@ -265,11 +260,21 @@ public class Animales extends Activity{
 	};
 	
 	private void sonido(String sSonidoAnimal){
-    	int resIDSonido = getResources().getIdentifier(sSonidoAnimal, "raw", getPackageName());
-    	mediaPlayerSonido = MediaPlayer.create(Animales.this, resIDSonido);
-    	mediaPlayerSonido.start();
-    	mediaPlayerSonido.setLooping(false);
-    	mediaPlayerSonido.setOnCompletionListener(completionList);	  	
+
+	    	int resIDSonido = getResources().getIdentifier(sSonidoAnimal, "raw", getPackageName());
+	    	if (mediaPlayerSonido != null){
+	    		mediaPlayerSonido.release();
+	    	}
+	    	mediaPlayerSonido = MediaPlayer.create(Animales.this, resIDSonido);
+	    	/*
+	    	if (mediaPlayerSonido.isPlaying()){
+	    		mediaPlayerSonido.reset();
+	    		mediaPlayerSonido.stop();
+	    	}
+	    	*/
+	    	mediaPlayerSonido.start();
+	    	mediaPlayerSonido.setLooping(false);
+	    	mediaPlayerSonido.setOnCompletionListener(completionList);
 	} 
 	
 	private void aleatorio(){

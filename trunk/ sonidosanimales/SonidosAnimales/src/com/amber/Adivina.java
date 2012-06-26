@@ -42,6 +42,7 @@ public class Adivina extends Activity{
 	private ArrayList<Animal> listaAnimales;
 	private int iNumSonidoAleatorio;
 	private MediaPlayer mediaPlayerSonido;
+	private int numAnimales = 3;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class Adivina extends Activity{
 		
 		try{
 
-			obtenerAnimales(3);
+			obtenerAnimales(numAnimales);
 		}
 		catch (Exception e) {
 			Log.e("Error inicia adivina", e.toString());
@@ -93,7 +94,7 @@ public class Adivina extends Activity{
 	private OnClickListener ivRecargarCL = new OnClickListener() {
 		
 		public void onClick(View arg0) {
-			obtenerAnimales(3);
+			obtenerAnimales(numAnimales);
 		}
 	};
 	
@@ -166,6 +167,10 @@ public class Adivina extends Activity{
 
 		gvAnimales.setAdapter(new ImageAdapter(this, listaAnimales.size(), listaAnimales));
 		cursor.close();
+		
+		if (mediaPlayerSonido!=null){
+			mediaPlayerSonido.stop();
+		}
 		//cursor.moveToPosition(numAleatorio);
 /*
 		if (cursor.moveToFirst()){
@@ -242,11 +247,11 @@ public class Adivina extends Activity{
 			DatosAnimalView holder;
 			if (convertView == null) 
 			{ 
-			convertView = inflater.inflate(R.layout.animaladivina, null); 
-			holder = new DatosAnimalView(); 
-			holder.setImagenAnimal((ImageView)convertView.findViewById(R.id.ivImagenAnimalAdivina));
-			holder.setNombreAnimal((TextView)convertView.findViewById(R.id.tvNombreAnimalAdivina));
-			convertView.setTag(holder); 
+				convertView = inflater.inflate(R.layout.animaladivina,null); 
+				holder = new DatosAnimalView(); 
+				holder.setImagenAnimal((ImageView)convertView.findViewById(R.id.ivImagenAnimalAdivina));
+				holder.setNombreAnimal((TextView)convertView.findViewById(R.id.tvNombreAnimalAdivina));
+				convertView.setTag(holder); 
 			} 
 			else 
 			{ 
@@ -259,6 +264,7 @@ public class Adivina extends Activity{
 		    	Drawable drawable = res.getDrawable(resID); 
 				holder.getImagenAnimal().setImageDrawable(drawable);
 				holder.getNombreAnimal().setText(((Animal) getItem(posicion)).getNombreAnimal());
+				
 
 			}
 			catch(Exception err){
@@ -295,7 +301,11 @@ public class Adivina extends Activity{
 	
 	private void sonido(String sSonidoAnimal){
     	int resIDSonido = getResources().getIdentifier(sSonidoAnimal, "raw", getPackageName());
+    	if (mediaPlayerSonido != null){
+    		mediaPlayerSonido.release();
+    	}
     	mediaPlayerSonido = MediaPlayer.create(Adivina.this, resIDSonido);
+
     	mediaPlayerSonido.start();
     	mediaPlayerSonido.setLooping(false);
     	mediaPlayerSonido.setOnCompletionListener(completionList);	
