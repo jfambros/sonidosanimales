@@ -7,6 +7,7 @@ import java.util.Random;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -40,15 +42,60 @@ public class AdivinaLista  extends ListActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+
 		try{
-			setContentView(R.layout.listaadivina);
-			obtenerAnimales(numAnimales);
+			setContentView(R.layout.listaadivina);		
+			obtenerAnimales(numAnimales);			
+			ImageView ivSonido = (ImageView)findViewById(R.id.ivSonidoAdivinaLista);
+			ivSonido.setOnClickListener(ivSonidoCL);
+			
+			ImageView ivRegresaAdivina = (ImageView)findViewById(R.id.ivRegresaAdivinaLista);
+			ivRegresaAdivina.setOnClickListener(ivRegresaAdivinaCL);
+			
+			ImageView ivRecargar = (ImageView)findViewById(R.id.ivRecargaAdivinaLista);
+			ivRecargar.setOnClickListener(ivRecargarCL);
+			
+			TextView tvMensajeAdivina = (TextView)findViewById(R.id.tvMensajeAdivinaLista);
+			tvMensajeAdivina.setOnClickListener(tvMensajeAdivinaCL);
 		}
 		catch (Exception e) {
 			Log.e("Error inicia adivina", e.toString());
 		}
 	}
 	
+	private OnClickListener ivSonidoCL = new OnClickListener() {
+		
+		public void onClick(View arg0) {
+			sonido(sonidoAnimalAleatorio);
+		}
+	};
+	
+private OnClickListener tvMensajeAdivinaCL = new OnClickListener() {
+		
+		public void onClick(View arg0) {
+			sonido(sonidoAnimalAleatorio);			
+		}
+	};
+	private OnClickListener ivRecargarCL = new OnClickListener() {
+		
+		public void onClick(View arg0) {
+			if (mediaPlayerSonido != null){
+				mediaPlayerSonido.release();
+			}
+			obtenerAnimales(numAnimales);
+		}
+	};
+	
+	private OnClickListener ivRegresaAdivinaCL = new OnClickListener() {
+		
+		public void onClick(View arg0) {
+			cierra();
+			mediaPlayerSonido.release();
+			Intent intent = new Intent();
+			intent.setClass(AdivinaLista.this, Animales.class);
+			startActivity(intent); 
+		}
+	};
 	
 	 public class ListaConImagenes extends ArrayAdapter<Animal> {
 
@@ -85,7 +132,6 @@ public class AdivinaLista  extends ListActivity{
 	    	    				Log.e("Error en imagen", err.toString());
 	    	    			}
 	                }
-
 	                return v;
 	        }
 	}
@@ -153,12 +199,6 @@ public class AdivinaLista  extends ListActivity{
 		        setListAdapter(this.adaptador);
 		        
 			cursor.close();
-			
-			if (mediaPlayerSonido!=null){
-				mediaPlayerSonido.stop();
-			}
-			//cursor.moveToPosition(numAleatorio);
-
 		}
 	 
 		OnCompletionListener completionList = new OnCompletionListener() {

@@ -102,6 +102,9 @@ public class Adivina extends Activity{
 		
 		public void onClick(View arg0) {
 			cierra();
+			if (mediaPlayerSonido!=null){
+				mediaPlayerSonido.stop();
+			}
 			Intent intent = new Intent();
 			intent.setClass(Adivina.this, Animales.class);
 			startActivity(intent); 
@@ -158,9 +161,7 @@ public class Adivina extends Activity{
 				
 				Animal animal = new Animal();
 				animal.setNombreAnimal(sNombreAnimal);
-				animal.setDrawableSonidoAnimal(sFiguraAnimal);
-				//animal.setIdioma(sIdioma);
-				
+				animal.setDrawableSonidoAnimal(sFiguraAnimal);			
 				listaAnimales.add(animal);
 				cont++;
 			}

@@ -17,8 +17,8 @@
  
         <ImageView
             android:id="@+id/ivAnimalLista"
-            android:layout_width="50dip"
-            android:layout_height="50dip"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
             android:src="@drawable/buho"/>
  
     </LinearLayout>
@@ -28,8 +28,9 @@
         android:id="@+id/tvNombAnimalLista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/thumbnail"
+       
         android:layout_toRightOf="@+id/thumbnail"
+        android:layout_centerVertical="true"
         android:text="Nombre animal"
         android:textColor="#040404"
         android:typeface="sans"
