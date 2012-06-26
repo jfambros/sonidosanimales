@@ -22,6 +22,11 @@
 		<idioma>es</idioma>
 	</animal>
 	<animal>
+		<nombre>Mono</nombre>
+		<drawableSonido>mono</drawableSonido>
+		<idioma>es</idioma>
+	</animal>	
+	<animal>
 		<nombre>Oso</nombre>
 		<drawableSonido>oso</drawableSonido>
 		<idioma>es</idioma>
@@ -34,6 +39,11 @@
 	<animal>
 		<nombre>Perro</nombre>
 		<drawableSonido>perro</drawableSonido>
+		<idioma>es</idioma>
+	</animal>
+	<animal>
+		<nombre>Rana</nombre>
+		<drawableSonido>rana</drawableSonido>
 		<idioma>es</idioma>
 	</animal>
 	<animal>
