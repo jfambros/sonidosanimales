@@ -39,7 +39,6 @@ public class RecorrerXML {
 		final ArrayList<Animal> arrayListAnimales = new ArrayList<Animal>();
 		 //Nos posicionamos en el nodo principal del árbol (<rss>)
         Element root = dom.getDocumentElement(); 
-        //Log.i("xml", root.toString())	;
         //Localizamos todos los elementos <item>
         NodeList items = root.getElementsByTagName("animal");
 

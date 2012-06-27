@@ -15,7 +15,6 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -38,7 +37,6 @@ public class Animales extends Activity{
 
 
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.animal);
 		ImageView ivMenu = (ImageView)findViewById(R.id.ivMenu);
@@ -58,29 +56,26 @@ public class Animales extends Activity{
 		ImageView ivAleatorio = (ImageView)findViewById(R.id.ivAleatorio);
 		ivAleatorio.setOnClickListener(ivAleatorioCL);
 		
+		ImageView ivAdivina = (ImageView)findViewById(R.id.ivAdivinar);
+		ivAdivina.setOnClickListener(ivAdivinaCL);
+		
 		if (inicio == true){
 			try{
 			inicioDatos();
 			}catch (Exception e) {
-				Log.e("error inicio", e.toString());
+
 			}
 		}else{
 			llenaObjetos();
 		}
-	
-		
-		//llenaMapa();
-		
-		
 	}
-	@Override
+
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
-	       case R.id.menuAdivinar:
-	    	   cerrar();
+	       case R.id.menuConfigurar:
 	    	   inicio = true; 
 	           Intent intent = new Intent();
-	           intent.setClass(Animales.this, AdivinaLista.class);
+	           intent.setClass(Animales.this, Configuracion.class);
 	           startActivity(intent);
 	    	   return true; 
 		}
@@ -92,36 +87,7 @@ public class Animales extends Activity{
 		cursorDatos.close();
 		accesoDatos.cierraBase();
 	}
-	/*
-	protected void onStop() {
-		// TODO Auto-generated method stub
-		super.onStop();
-		mediaPlayerSonido.stop();
-    	mediaPlayerSonido.setOnCompletionListener(completionList);	
-	}
-	
-	
-	@Override
-	protected void onPause() {
-		// TODO Auto-generated method stub		
-		super.onPause();
-		mediaPlayerSonido.stop();
 
-	}
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		sonido(sSonidoAnimal);
-		ImageView ivConSinSonido = (ImageView)findViewById(R.id.ivConSinSonido);
-		if (sonido == true){
-			ivConSinSonido.setImageResource(R.drawable.sinsonido48x48);
-			sonido = true;
-		}else{
-			ivConSinSonido.setImageResource(R.drawable.consonido48x48);
-			sonido = false;
-		}
-	}
-	*/
 	
 	@Override
 	protected void onDestroy() {
@@ -169,23 +135,7 @@ public class Animales extends Activity{
 			aleatorio();
 		}
 	};
-	/*
-	private OnClickListener ivConSinSonidoCL = new OnClickListener() {
-		
-		public void onClick(View v) {
-			ImageView ivConSinSonido = (ImageView)findViewById(R.id.ivConSinSonido);
-			
-			if (mediaPlayerSonido.isPlaying()){
-				mediaPlayerSonido.stop();
-				ivConSinSonido.setImageResource(R.drawable.consonido48x48);
-			}
-			else{
-				sonido(sSonidoAnimal);
-				ivConSinSonido.setImageResource(R.drawable.sinsonido48x48);
-			}
-		}
-	};
-	*/
+
 	private OnClickListener ivImagenAnimalCL = new OnClickListener() {
 		
 		public void onClick(View v) {
@@ -193,12 +143,19 @@ public class Animales extends Activity{
 		}
 	};
 	
-	private void inicioDatos() throws SAXException, IOException, ParserConfigurationException{
-		//CreaBD creaBD = new CreaBD(getApplicationContext(), nombreBD, null, 1);
-		//SQLiteDatabase db = creaBD.getWritableDatabase();
+	private OnClickListener ivAdivinaCL = new OnClickListener() {
 		
+		public void onClick(View v) {
+			Intent intent = new Intent();
+			intent.setClass(Animales.this, AdivinaLista.class);
+			startActivity(intent);	
+			
+		}
+	};
+	
+	private void inicioDatos() throws SAXException, IOException, ParserConfigurationException{
+
 		accesoDatos = new AccesoDatos(getApplicationContext(), nombreBD);
-		//accesoDatos.eliminaTabla("animal");
 		accesoDatos.abrirBase();
 		accesoDatos.creaTabla();
 		accesoDatos.insertaDatos("animal", this);	
@@ -266,12 +223,6 @@ public class Animales extends Activity{
 	    		mediaPlayerSonido.release();
 	    	}
 	    	mediaPlayerSonido = MediaPlayer.create(Animales.this, resIDSonido);
-	    	/*
-	    	if (mediaPlayerSonido.isPlaying()){
-	    		mediaPlayerSonido.reset();
-	    		mediaPlayerSonido.stop();
-	    	}
-	    	*/
 	    	mediaPlayerSonido.start();
 	    	mediaPlayerSonido.setLooping(false);
 	    	mediaPlayerSonido.setOnCompletionListener(completionList);
