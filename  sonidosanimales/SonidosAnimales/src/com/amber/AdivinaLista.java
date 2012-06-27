@@ -183,7 +183,6 @@ private OnClickListener tvMensajeAdivinaCL = new OnClickListener() {
 					//String sIdioma = cursor.getString(iIdioma);
 					if (cont == iNumSonidoAleatorio){
 						sonidoAnimalAleatorio = sSonidoAnimal;
-						Log.i("Sonido animal", sonidoAnimalAleatorio);
 					}
 					
 					Animal animal = new Animal();

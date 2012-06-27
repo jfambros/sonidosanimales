@@ -15,6 +15,7 @@
         </activity>
 	<activity android:name="Animales"></activity>
 	<activity android:name="Adivina"></activity>
-	<activity android:name="AdivinaLista"></activity>		
+	<activity android:name="AdivinaLista"></activity>
+	<activity android:name="Configuracion"></activity>			
     </application>
 </manifest>

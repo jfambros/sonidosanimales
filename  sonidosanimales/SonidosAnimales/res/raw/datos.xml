@@ -2,6 +2,11 @@
 <Datos>
 <Animales>
 	<animal>
+		<nombre>Ave</nombre>
+		<drawableSonido>ave</drawableSonido>
+		<idioma>es</idioma>
+	</animal>
+	<animal>
 		<nombre>Buho</nombre>
 		<drawableSonido>buho</drawableSonido>
 		<idioma>es</idioma>
@@ -17,10 +22,20 @@
 		<idioma>es</idioma>
 	</animal>
 	<animal>
+		<nombre>Elefante</nombre>
+		<drawableSonido>elefante</drawableSonido>
+		<idioma>es</idioma>
+	</animal>	
+	<animal>
 		<nombre>Gato</nombre>
 		<drawableSonido>gato</drawableSonido>
 		<idioma>es</idioma>
 	</animal>
+	<animal>
+		<nombre>León</nombre>
+		<drawableSonido>leon</drawableSonido>
+		<idioma>es</idioma>
+	</animal>	
 	<animal>
 		<nombre>Mono</nombre>
 		<drawableSonido>mono</drawableSonido>
@@ -42,10 +57,20 @@
 		<idioma>es</idioma>
 	</animal>
 	<animal>
+		<nombre>Pollito</nombre>
+		<drawableSonido>pollo</drawableSonido>
+		<idioma>es</idioma>
+	</animal>	
+	<animal>
 		<nombre>Rana</nombre>
 		<drawableSonido>rana</drawableSonido>
 		<idioma>es</idioma>
 	</animal>
+	<animal>
+		<nombre>Tigre</nombre>
+		<drawableSonido>tigre</drawableSonido>
+		<idioma>es</idioma>
+	</animal>	
 	<animal>
 		<nombre>Vaca</nombre>
 		<drawableSonido>vaca</drawableSonido>

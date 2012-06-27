@@ -14,7 +14,6 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
-import android.provider.ContactsContract.CommonDataKinds.Im;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -203,7 +202,7 @@ public class Adivina extends Activity{
 	private OnItemClickListener clickListGridView = new OnItemClickListener() {
 
 		public void onItemClick(AdapterView<?> parent, View view, int posicion,	long id) {
-			String nombre = ((Animal)(parent.getAdapter().getItem(posicion))).getNombreAnimal();
+			//String nombre = ((Animal)(parent.getAdapter().getItem(posicion))).getNombreAnimal();
 			String sonido = ((Animal)parent.getAdapter().getItem(posicion)).getDrawableSonidoAnimal();
 			if (sonido.equals(sonidoAnimalAleatorio)){
 				Toast.makeText(Adivina.this, "Muy bien", Toast.LENGTH_SHORT).show();

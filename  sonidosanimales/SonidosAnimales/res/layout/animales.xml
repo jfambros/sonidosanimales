@@ -108,12 +108,30 @@
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:orientation="vertical"
+			android:layout_centerVertical="true"
 			xmlns:android="http://schemas.android.com/apk/res/android">
-			<ImageView android:id="@+id/ivAleatorio2" 
-			android:src="@drawable/aleatorio48x48"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"/>
+			<TableLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+				<TableRow
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal">			
+							<ImageView android:id="@+id/ivAleatorio2" 
+							android:src="@drawable/aleatorio48x48"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"/>
+							<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="          " />
+							<ImageView android:id="@+id/ivAdivinar2" 
+							android:src="@drawable/adivinar48x48"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"/>	
+				</TableRow>
+			</TableLayout>					
 		</LinearLayout>
 
 	
