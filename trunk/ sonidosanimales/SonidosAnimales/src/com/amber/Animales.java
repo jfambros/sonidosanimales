@@ -15,6 +15,7 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,6 +35,7 @@ public class Animales extends Activity{
 	private final String nombreBD = "Animales.db";
 	private String sSonidoAnimal;
 	private static Boolean inicio = true;
+	private int numAnimales;
 
 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,8 @@ public class Animales extends Activity{
 	       case R.id.menuConfigurar:
 	    	   inicio = true; 
 	           Intent intent = new Intent();
+	           intent.putExtra("numAnimales", numAnimales);
+	           Log.i("Numero", Integer.toString(numAnimales));
 	           intent.setClass(Animales.this, Configuracion.class);
 	           startActivity(intent);
 	    	   return true; 
@@ -160,6 +164,7 @@ public class Animales extends Activity{
 		accesoDatos.creaTabla();
 		accesoDatos.insertaDatos("animal", this);	
 		cursorDatos = accesoDatos.seleccionaDatos("animal");
+		numAnimales = cursorDatos.getCount();
 		if (cursorDatos.moveToFirst()){
 			llenaObjetos(); 
 		}
@@ -170,6 +175,7 @@ public class Animales extends Activity{
 	private void cambioAnimalSig(){
 		if (!cursorDatos.isLast()){
 			cursorDatos.moveToNext();
+			//mediaPlayerSonido.stop();
 			llenaObjetos();
 		}else{
 			cursorDatos.moveToFirst();
@@ -205,6 +211,7 @@ public class Animales extends Activity{
     	Drawable drawable = res.getDrawable(resID); 
     	ivImagenAnimal.setImageDrawable(drawable);	
     	//sonido
+    	Log.i("sonido",sSonidoAnimal);
     	sonido(sSonidoAnimal);
 
 	}
@@ -222,7 +229,18 @@ public class Animales extends Activity{
 	    	if (mediaPlayerSonido != null){
 	    		mediaPlayerSonido.release();
 	    	}
+	    	mediaPlayerSonido = null;
+	    	mediaPlayerSonido = new MediaPlayer();
 	    	mediaPlayerSonido = MediaPlayer.create(Animales.this, resIDSonido);
+	    	try {
+				mediaPlayerSonido.prepare();
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	    	mediaPlayerSonido.start();
 	    	mediaPlayerSonido.setLooping(false);
 	    	mediaPlayerSonido.setOnCompletionListener(completionList);
