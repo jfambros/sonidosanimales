@@ -21,11 +21,7 @@
 		<drawableSonido>cerdo</drawableSonido>
 		<idioma>es</idioma>
 	</animal>
-	<animal>
-		<nombre>Elefante</nombre>
-		<drawableSonido>elefante</drawableSonido>
-		<idioma>es</idioma>
-	</animal>	
+
 	<animal>
 		<nombre>Gato</nombre>
 		<drawableSonido>gato</drawableSonido>
@@ -66,11 +62,8 @@
 		<drawableSonido>rana</drawableSonido>
 		<idioma>es</idioma>
 	</animal>
-	<animal>
-		<nombre>Tigre</nombre>
-		<drawableSonido>tigre</drawableSonido>
-		<idioma>es</idioma>
-	</animal>	
+
+
 	<animal>
 		<nombre>Vaca</nombre>
 		<drawableSonido>vaca</drawableSonido>

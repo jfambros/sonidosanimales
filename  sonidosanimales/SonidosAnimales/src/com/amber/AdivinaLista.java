@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.amber.utils.AccesoDatos;
 import com.amber.utils.Animal;
+import com.amber.utils.OpcionesGenerales;
 
 
 public class AdivinaLista  extends ListActivity{
@@ -36,7 +37,7 @@ public class AdivinaLista  extends ListActivity{
 	private ArrayList<Animal> listaAnimales;
 	private int iNumSonidoAleatorio;
 	private MediaPlayer mediaPlayerSonido;
-	private int numAnimales = 3; 
+	private int numAnimales = OpcionesGenerales.numeroAnimales; 
 	private ListaConImagenes adaptador;
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +91,9 @@ private OnClickListener tvMensajeAdivinaCL = new OnClickListener() {
 		
 		public void onClick(View arg0) {
 			cierra();
-			mediaPlayerSonido.release();
+			if (mediaPlayerSonido != null){
+				mediaPlayerSonido.release();
+			}
 			Intent intent = new Intent();
 			intent.setClass(AdivinaLista.this, Animales.class);
 			startActivity(intent); 

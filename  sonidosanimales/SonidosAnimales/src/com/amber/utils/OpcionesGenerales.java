@@ -5,6 +5,8 @@ public class OpcionesGenerales {
 			"Número de animales (adivinar)",
 			"Idioma"
 	};
+	
+	public static int numeroAnimales = 4;
 
 	public String[] getListaOpciones() {
 		return listaOpciones;
