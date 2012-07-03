@@ -2,4 +2,5 @@
 <resources>
     <string name="hello">Hello World, Principal!</string>
     <string name="app_name">Sonidos de animales</string>
+    <string name="valorSpinner">Selecciona</string>
 </resources>

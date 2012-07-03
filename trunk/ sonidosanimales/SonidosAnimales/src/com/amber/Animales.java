@@ -7,7 +7,10 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -16,12 +19,17 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.amber.utils.AccesoDatos;
@@ -82,6 +90,9 @@ public class Animales extends Activity{
 	           intent.setClass(Animales.this, Configuracion.class);
 	           startActivity(intent);
 	    	   return true; 
+	       case R.id.menuBuscar:
+	    	   buscaAnimal();
+	    	   return true;
 		}
 		
 		return true;
@@ -253,5 +264,47 @@ public class Animales extends Activity{
 		cursorDatos.moveToPosition(numero);
 		llenaObjetos();
 	}
+	
+	private void buscaAnimal(){
+		Builder builder;
+		AlertDialog alertDialog;
+		LayoutInflater lInflater = (LayoutInflater)Animales.this.getSystemService(Animales.this.LAYOUT_INFLATER_SERVICE);
+		View layout = lInflater.inflate(R.layout.dialogobuscar, (ViewGroup)Animales.this.findViewById(R.layout.main));
+		Spinner spinAnimales = (Spinner)layout.findViewById(R.id.spinnerAnimales);
+		
+		builder = new AlertDialog.Builder(Animales.this);
+		builder.setView(layout);
+		alertDialog = builder.create();
+		alertDialog.setTitle("Mensaje");
+		//btnAceptar.setOnClickListener(btnAceptarCL);
+		String[] from = new String[]{"nombre"};
+		// create an array of the display item we want to bind our data to
+		int[] to = new int[]{android.R.id.text1};
+		// create simple cursor adapter
+		SimpleCursorAdapter adapter =  new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, cursorDatos, from, to );
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item );
+		spinAnimales.setPrompt("Selecciona");
+		// get reference to our spinner
+		spinAnimales.setAdapter(adapter);
+        spinAnimales.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(
+                            AdapterView<?> parent, 
+                            View view, 
+                            int position, 
+                            long id) {
+//                    		cursorDatos.getColumnIndexOrThrow( ((TextView)view).getText().toString());
+                    	Log.i("Spinner",((TextView)view).getText().toString() + Integer.toString(position));
+                    }
+
+					public void onNothingSelected(AdapterView<?> arg0) {
+					
+					}
+                }
+            );
+		
+		alertDialog.show();
+	}
+	
 	
 }
