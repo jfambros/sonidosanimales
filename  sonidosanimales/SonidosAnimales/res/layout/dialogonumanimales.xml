@@ -33,7 +33,8 @@
 	android:layout_height="wrap_content" 
 	android:layout_below="@+id/tvNumMaxAnimales" 
 	android:layout_centerHorizontal="true" 
-	android:layout_marginTop="16dp">
+	android:layout_marginTop="16dp"
+	android:inputType="number">
     <requestFocus></requestFocus>
 </EditText>
 	<Button 

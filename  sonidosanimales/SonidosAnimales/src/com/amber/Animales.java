@@ -27,10 +27,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amber.utils.AccesoDatos;
 
@@ -44,6 +46,8 @@ public class Animales extends Activity{
 	private String sSonidoAnimal;
 	private static Boolean inicio = true;
 	private int numAnimales;
+	private String animalSeleccionado;
+	private AlertDialog alertDialogSeleccAnimal;
 
 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,7 @@ public class Animales extends Activity{
 		
 		ImageView ivAdivina = (ImageView)findViewById(R.id.ivAdivinar);
 		ivAdivina.setOnClickListener(ivAdivinaCL);
+		
 		
 		if (inicio == true){
 			try{
@@ -267,15 +272,18 @@ public class Animales extends Activity{
 	
 	private void buscaAnimal(){
 		Builder builder;
-		AlertDialog alertDialog;
 		LayoutInflater lInflater = (LayoutInflater)Animales.this.getSystemService(Animales.this.LAYOUT_INFLATER_SERVICE);
 		View layout = lInflater.inflate(R.layout.dialogobuscar, (ViewGroup)Animales.this.findViewById(R.layout.main));
 		Spinner spinAnimales = (Spinner)layout.findViewById(R.id.spinnerAnimales);
+		Button btnBuscarAnimal = (Button)layout.findViewById(R.id.btnBuscarAnimal);
+		
+
+
 		
 		builder = new AlertDialog.Builder(Animales.this);
 		builder.setView(layout);
-		alertDialog = builder.create();
-		alertDialog.setTitle("Mensaje");
+		alertDialogSeleccAnimal = builder.create();
+		alertDialogSeleccAnimal.setTitle("Mensaje");
 		//btnAceptar.setOnClickListener(btnAceptarCL);
 		String[] from = new String[]{"nombre"};
 		// create an array of the display item we want to bind our data to
@@ -294,7 +302,8 @@ public class Animales extends Activity{
                             int position, 
                             long id) {
 //                    		cursorDatos.getColumnIndexOrThrow( ((TextView)view).getText().toString());
-                    	Log.i("Spinner",((TextView)view).getText().toString() + Integer.toString(position));
+                    	//Log.i("Spinner",((TextView)view).getText().toString() + Integer.toString(position));
+                    	animalSeleccionado = ((TextView)view).getText().toString();
                     }
 
 					public void onNothingSelected(AdapterView<?> arg0) {
@@ -302,8 +311,18 @@ public class Animales extends Activity{
 					}
                 }
             );
+        
+		OnClickListener btnBuscarAnimalCL = new OnClickListener() {
+			
+			public void onClick(View v) {
+				Toast.makeText(Animales.this, animalSeleccionado, Toast.LENGTH_SHORT).show();
+				alertDialogSeleccAnimal.cancel();
+			}
+		};
 		
-		alertDialog.show();
+		btnBuscarAnimal.setOnClickListener(btnBuscarAnimalCL);
+		
+		alertDialogSeleccAnimal.show();
 	}
 	
 	

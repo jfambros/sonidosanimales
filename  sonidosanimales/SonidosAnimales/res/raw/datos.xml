@@ -2,7 +2,12 @@
 <Datos>
 <Animales>
 	<animal>
-		<nombre>Ave</nombre>
+		<nombre>Abeja</nombre>
+		<drawableSonido>abeja</drawableSonido>
+		<idioma>es</idioma>
+	</animal>
+	<animal>
+		<nombre>Ave/Pájaro</nombre>
 		<drawableSonido>ave</drawableSonido>
 		<idioma>es</idioma>
 	</animal>
@@ -21,7 +26,11 @@
 		<drawableSonido>cerdo</drawableSonido>
 		<idioma>es</idioma>
 	</animal>
-
+	<animal>
+		<nombre>Elefante</nombre>
+		<drawableSonido>elefante</drawableSonido>
+		<idioma>es</idioma>
+	</animal>
 	<animal>
 		<nombre>Gato</nombre>
 		<drawableSonido>gato</drawableSonido>
@@ -62,7 +71,11 @@
 		<drawableSonido>rana</drawableSonido>
 		<idioma>es</idioma>
 	</animal>
-
+	<animal>
+		<nombre>Tigre</nombre>
+		<drawableSonido>tigre</drawableSonido>
+		<idioma>es</idioma>
+	</animal>  
 
 	<animal>
 		<nombre>Vaca</nombre>
