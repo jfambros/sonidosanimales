@@ -5,11 +5,26 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
   
+  <TextView android:text="Selecciona un animal para mostrar su imagen y sonido"
+  	android:layout_width="wrap_content"
+  	android:layout_height="wrap_content"
+  	android:lines="2"
+  	android:layout_gravity="center_horizontal"
+  />
+  
 	<Spinner android:id="@+id/spinnerAnimales"
 	 		android:layout_width="fill_parent"
 	 		android:layout_height="wrap_content"
 	 		android:drawSelectorOnTop="true"
 	 		android:prompt="@string/valorSpinner"
+	/>
+	
+	<Button
+		android:id="@+id/btnBuscarAnimal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Seleccionar" 
+		android:layout_gravity="center_horizontal"
 	/>  
     
 </LinearLayout>
