@@ -11,6 +11,7 @@ import org.xml.sax.SAXException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -48,6 +49,7 @@ public class Animales extends Activity{
 	private int numAnimales;
 	private String animalSeleccionado;
 	private AlertDialog alertDialogSeleccAnimal;
+	private int iAnimalSeleccionado;
 
 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,9 @@ public class Animales extends Activity{
 	       case R.id.menuBuscar:
 	    	   buscaAnimal();
 	    	   return true;
+	       case R.id.menuAcercaDe:
+	    	   acercaDe();
+	    	   return true;
 		}
 		
 		return true;
@@ -109,19 +114,17 @@ public class Animales extends Activity{
 	}
 
 	
-	@Override
+
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 	}
-	@Override
+
 	protected void onStop() {
 		super.onStop();
 		
 	}
 	//Menú
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    //Alternativa 1
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.menu, menu);
 	    return true;
@@ -251,10 +254,8 @@ public class Animales extends Activity{
 	    	try {
 				mediaPlayerSonido.prepare();
 			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    	mediaPlayerSonido.start();
@@ -284,15 +285,11 @@ public class Animales extends Activity{
 		builder.setView(layout);
 		alertDialogSeleccAnimal = builder.create();
 		alertDialogSeleccAnimal.setTitle("Mensaje");
-		//btnAceptar.setOnClickListener(btnAceptarCL);
 		String[] from = new String[]{"nombre"};
-		// create an array of the display item we want to bind our data to
 		int[] to = new int[]{android.R.id.text1};
-		// create simple cursor adapter
 		SimpleCursorAdapter adapter =  new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, cursorDatos, from, to );
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item );
 		spinAnimales.setPrompt("Selecciona");
-		// get reference to our spinner
 		spinAnimales.setAdapter(adapter);
         spinAnimales.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
@@ -301,9 +298,8 @@ public class Animales extends Activity{
                             View view, 
                             int position, 
                             long id) {
-//                    		cursorDatos.getColumnIndexOrThrow( ((TextView)view).getText().toString());
-                    	//Log.i("Spinner",((TextView)view).getText().toString() + Integer.toString(position));
                     	animalSeleccionado = ((TextView)view).getText().toString();
+                    	iAnimalSeleccionado = position;
                     }
 
 					public void onNothingSelected(AdapterView<?> arg0) {
@@ -317,12 +313,33 @@ public class Animales extends Activity{
 			public void onClick(View v) {
 				Toast.makeText(Animales.this, animalSeleccionado, Toast.LENGTH_SHORT).show();
 				alertDialogSeleccAnimal.cancel();
+				cursorDatos.moveToPosition(iAnimalSeleccionado);
+				llenaObjetos();
 			}
 		};
 		
 		btnBuscarAnimal.setOnClickListener(btnBuscarAnimalCL);
 		
 		alertDialogSeleccAnimal.show();
+	}
+	
+	private void acercaDe(){
+		AlertDialog.Builder alert = new AlertDialog.Builder(Animales.this);
+		
+		DialogInterface.OnClickListener aceptar = new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface arg0, int arg1) {
+				setResult(RESULT_OK);
+			}
+		};
+		
+		alert.setTitle("Acerca de");
+		alert.setMessage("Sonidos de animales desarrollado por AmBerSoft \n" +
+				"Imagen de inicio y presentación tomadas de http://focaclipart.net23.net/ \n" +
+				"Algunas imágenes tomadas de http://focaclipart.net23.net/ y de \n" +
+				"http://www.webdesignhot.com/");
+		alert.setPositiveButton("Aceptar", aceptar);
+		alert.show(); 
 	}
 	
 	
