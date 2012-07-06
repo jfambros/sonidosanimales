@@ -29,6 +29,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
@@ -75,10 +76,9 @@ public class Animales extends Activity{
 		ImageView ivAdivina = (ImageView)findViewById(R.id.ivAdivinar);
 		ivAdivina.setOnClickListener(ivAdivinaCL);
 		
-		
 		if (inicio == true){
 			try{
-			inicioDatos();
+				inicioDatos();
 			}catch (Exception e) {
 
 			}
@@ -148,6 +148,7 @@ public class Animales extends Activity{
 	private OnClickListener ivSiguienteCL = new OnClickListener() {
 		
 		public void onClick(View v) {
+			//aleatorioImagenFondo(3);
 			cambioAnimalSig();
 		}
 	};
@@ -194,7 +195,6 @@ public class Animales extends Activity{
 	private void cambioAnimalSig(){
 		if (!cursorDatos.isLast()){
 			cursorDatos.moveToNext();
-			//mediaPlayerSonido.stop();
 			llenaObjetos();
 		}else{
 			cursorDatos.moveToFirst();
@@ -230,7 +230,6 @@ public class Animales extends Activity{
     	Drawable drawable = res.getDrawable(resID); 
     	ivImagenAnimal.setImageDrawable(drawable);	
     	//sonido
-    	Log.i("sonido",sSonidoAnimal);
     	sonido(sSonidoAnimal);
 
 	}
@@ -269,6 +268,12 @@ public class Animales extends Activity{
 		numero = (int)(r.nextInt(cursorDatos.getCount()));
 		cursorDatos.moveToPosition(numero);
 		llenaObjetos();
+	}
+	
+	private void aleatorioImagenFondo(int numero){
+		Random r = new Random();
+		numero = (int)(r.nextInt(numero));	
+		Toast.makeText(Animales.this, Integer.toString(numero+1), Toast.LENGTH_SHORT).show();
 	}
 	
 	private void buscaAnimal(){
