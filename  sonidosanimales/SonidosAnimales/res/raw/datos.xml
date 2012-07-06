@@ -12,6 +12,11 @@
 		<idioma>es</idioma>
 	</animal>
 	<animal>
+		<nombre>Borrego</nombre>
+		<drawableSonido>borrego</drawableSonido>
+		<idioma>es</idioma>
+	</animal>	
+	<animal>
 		<nombre>Buho</nombre>
 		<drawableSonido>buho</drawableSonido>
 		<idioma>es</idioma>
@@ -32,10 +37,20 @@
 		<idioma>es</idioma>
 	</animal>
 	<animal>
+		<nombre>Gallo</nombre>
+		<drawableSonido>gallo</drawableSonido>
+		<idioma>es</idioma>
+	</animal>	
+	<animal>
 		<nombre>Gato</nombre>
 		<drawableSonido>gato</drawableSonido>
 		<idioma>es</idioma>
 	</animal>
+	<animal>
+		<nombre>Guajolote / Pavo</nombre>
+		<drawableSonido>guajolote</drawableSonido>
+		<idioma>es</idioma>
+	</animal>	
 	<animal>
 		<nombre>León</nombre>
 		<drawableSonido>leon</drawableSonido>
