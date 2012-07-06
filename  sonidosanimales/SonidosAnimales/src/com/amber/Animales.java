@@ -341,8 +341,7 @@ public class Animales extends Activity{
 		alert.setTitle("Acerca de");
 		alert.setMessage("Sonidos de animales desarrollado por AmBerSoft \n" +
 				"Imagen de inicio y presentación tomadas de http://focaclipart.net23.net/ \n" +
-				"Algunas imágenes tomadas de http://focaclipart.net23.net/ y de \n" +
-				"http://www.webdesignhot.com/");
+				"Algunas imágenes tomadas de http://focaclipart.net23.net/ ");
 		alert.setPositiveButton("Aceptar", aceptar);
 		alert.show(); 
 	}
