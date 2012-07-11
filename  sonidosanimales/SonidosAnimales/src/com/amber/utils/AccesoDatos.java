@@ -13,6 +13,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.amber.R;
 import com.amber.RecorrerXML;
 
 public class AccesoDatos {
@@ -55,7 +56,7 @@ public class AccesoDatos {
 	}
 	
 	public void insertaDatos(String tabla, Activity activity) throws SAXException, IOException, ParserConfigurationException{
-		RecorrerXML recorrerXML = new RecorrerXML(activity);
+		RecorrerXML recorrerXML = new RecorrerXML(activity,R.raw.datos);
 		ArrayList<Animal> arrayListAnimales = recorrerXML.obtenerDatos();
 		for (int i = 0; i < arrayListAnimales.size(); i++){
 			Animal animal = arrayListAnimales.get(i);

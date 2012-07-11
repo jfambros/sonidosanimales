@@ -37,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amber.utils.AccesoDatos;
+import com.amber.utils.OpcionesGenerales;
 
 public class Animales extends Activity{
 	private TextView tvNombreAnimal;
@@ -75,6 +76,7 @@ public class Animales extends Activity{
 		
 		ImageView ivAdivina = (ImageView)findViewById(R.id.ivAdivinar);
 		ivAdivina.setOnClickListener(ivAdivinaCL);
+		FrameLayout flFondo = (FrameLayout)findViewById(R.id.layoutFondo);
 		
 		if (inicio == true){
 			try{
@@ -83,7 +85,9 @@ public class Animales extends Activity{
 
 			}
 		}else{
+			flFondo.setBackgroundResource(OpcionesGenerales.fondo);
 			llenaObjetos();
+			
 		}
 	}
 
@@ -123,7 +127,7 @@ public class Animales extends Activity{
 		super.onStop();
 		
 	}
-	//Menú
+	//Menï¿½
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.menu, menu);
@@ -250,6 +254,7 @@ public class Animales extends Activity{
 	    	mediaPlayerSonido = null;
 	    	mediaPlayerSonido = new MediaPlayer();
 	    	mediaPlayerSonido = MediaPlayer.create(Animales.this, resIDSonido);
+	    	/*
 	    	try {
 				mediaPlayerSonido.prepare();
 			} catch (IllegalStateException e) {
@@ -257,6 +262,7 @@ public class Animales extends Activity{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			*/
 	    	mediaPlayerSonido.start();
 	    	mediaPlayerSonido.setLooping(false);
 	    	mediaPlayerSonido.setOnCompletionListener(completionList);
@@ -340,8 +346,8 @@ public class Animales extends Activity{
 		
 		alert.setTitle("Acerca de");
 		alert.setMessage("Sonidos de animales desarrollado por AmBerSoft \n" +
-				"Imagen de inicio y presentación tomadas de http://focaclipart.net23.net/ \n" +
-				"Algunas imágenes tomadas de http://focaclipart.net23.net/ ");
+				"Imagen de inicio y presentaciÃ³n tomadas de http://focaclipart.net23.net/ \n" +
+				"Algunas imÃ¡genes tomadas de http://focaclipart.net23.net/ ");
 		alert.setPositiveButton("Aceptar", aceptar);
 		alert.show(); 
 	}

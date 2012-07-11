@@ -3,6 +3,7 @@ package com.amber;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,11 @@ public class Configuracion extends ListActivity{
 			if (pos == 0){
 				dialogoNumeroAnimales();
 			}
+			else 
+				if(pos == 1){
+					cambiaFondo();
+				}
+
 		}
 	};
 	
@@ -83,14 +89,16 @@ public class Configuracion extends ListActivity{
 				Toast.makeText(Configuracion.this, Integer.toString(OpcionesGenerales.numeroAnimales), Toast.LENGTH_SHORT).show();
 			}
 			else{
-				Toast.makeText(Configuracion.this, "Revisa el número capturado", Toast.LENGTH_SHORT).show();
+				Toast.makeText(Configuracion.this, "Revisa el nÃºmero capturado", Toast.LENGTH_SHORT).show();
 			}			
-			
+			 
 		}
 	};
 	
 	private void cambiaFondo(){
-		
+		Intent intent = new Intent();
+		intent.setClass(Configuracion.this, Fondo.class);
+		startActivity(intent);
 	}
 	
 }
