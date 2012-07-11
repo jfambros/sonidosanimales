@@ -17,6 +17,7 @@ import org.xml.sax.SAXException;
 import android.app.Activity;
 
 import com.amber.utils.Animal;
+import com.amber.utils.DFondo;
 
 
 
@@ -26,9 +27,9 @@ public class RecorrerXML {
 	private DocumentBuilder builder;
 	private	Document dom;
 	
-	public RecorrerXML(Activity activity) throws SAXException, IOException, ParserConfigurationException{
+	public RecorrerXML(Activity activity, int i) throws SAXException, IOException, ParserConfigurationException{
 		
-		 is = activity.getResources().openRawResource(R.raw.datos);
+		 is = activity.getResources().openRawResource(i);
 		 factory =  DocumentBuilderFactory.newInstance();
 		 builder  = factory.newDocumentBuilder();
 		 dom = builder.parse(is);
@@ -37,13 +38,10 @@ public class RecorrerXML {
 	
 	public ArrayList<Animal> obtenerDatos(){
 		final ArrayList<Animal> arrayListAnimales = new ArrayList<Animal>();
-		 //Nos posicionamos en el nodo principal del árbol (<rss>)
+		 //Nos posicionamos en el nodo principal del ï¿½rbol (<rss>)
         Element root = dom.getDocumentElement(); 
         //Localizamos todos los elementos <item>
         NodeList items = root.getElementsByTagName("animal");
-
-        
-
         //Recorremos la lista de animales
         for (int i=0; i<items.getLength(); i++)
         {
@@ -74,10 +72,45 @@ public class RecorrerXML {
                 
             }
             arrayListAnimales.add(animal);
-        }
-        
-        
+        }     
 		return arrayListAnimales;
+		
 	}
+	
+	public ArrayList<DFondo>obtenerFondos(){
+		final ArrayList<DFondo> arrayListaFondos = new ArrayList<DFondo>();
+		 //Nos posicionamos en el nodo principal del ï¿½rbol (<rss>)
+       Element root = dom.getDocumentElement(); 
+       //Localizamos todos los elementos <item>
+       NodeList items = root.getElementsByTagName("fondo");
 
+       //Recorremos la lista de animales
+       for (int i=0; i<items.getLength(); i++)
+       {
+           DFondo fondo = new DFondo();
+           //Obtenemos la noticia actual
+           Node item = items.item(i);
+
+           //Obtenemos la lista de datos del animal actual
+           NodeList datosFondo = item.getChildNodes();
+           //Procesamos cada dato del animal
+           for (int j=0; j<datosFondo.getLength(); j++)
+           {
+               Node dato = datosFondo.item(j);
+               String etiqueta = dato.getNodeName();
+
+               if (etiqueta.equals("nombreFondo"))
+               {
+                   fondo.setNombreFrondo(dato.getFirstChild().getNodeValue());
+               }else 
+               if (etiqueta.equals("imagenFondo"))
+               {
+                   fondo.setImagen(dato.getFirstChild().getNodeValue());
+               }
+               
+           }
+           arrayListaFondos.add(fondo);		
+       }
+       return arrayListaFondos;
+	}	
 }

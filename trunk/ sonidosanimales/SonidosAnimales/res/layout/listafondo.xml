@@ -1,0 +1,86 @@
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  	android:background="#ffffffff"
+  	android:id="@+id/rlFondo">
+
+
+<RelativeLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:background="#ff99ccff"
+	        android:layout_alignParentTop="true"
+	        android:id="@+id/norteFondoLista" >
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			xmlns:android="http://schemas.android.com/apk/res/android">
+			<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:layout_gravity="center_horizontal"
+			>
+
+			<TableLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+			<TableRow
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+			<ImageView
+				android:id="@+id/ivInicioFondoLista"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/inicio48x48" />
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="        " />
+			<ImageView
+				android:id="@+id/ivMenuFondoLista"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" 
+				android:src="@drawable/menu48x48"/>
+						
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="        " />
+			</TableRow>
+			</TableLayout>
+		</LinearLayout>
+		</LinearLayout>
+
+	
+</RelativeLayout>
+    	
+	
+	
+  <TextView 
+  android:id="@+id/tvFilaBFondoLista"
+  android:text=" "
+  android:layout_below="@id/norteFondoLista"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:layout_centerHorizontal="true"
+  />
+
+  
+
+    <ListView
+		android:id="@+id/android:list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:divider="#b5b5b5"
+        android:dividerHeight="1dp"
+        android:listSelector="@drawable/selector" 
+        android:layout_below="@id/tvFilaBFondoLista"/>
+ 
+</RelativeLayout>
