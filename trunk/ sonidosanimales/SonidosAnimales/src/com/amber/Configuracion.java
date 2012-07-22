@@ -23,7 +23,7 @@ import com.amber.utils.OpcionesGenerales;
 
 public class Configuracion extends ListActivity{
 	private OpcionesGenerales config = new OpcionesGenerales();
-	private Bundle bundle;
+	private Bundle bundle = new Bundle();
 	private int numAnimales;
 	private EditText etNumAnimales;
 	private AlertDialog.Builder builder;

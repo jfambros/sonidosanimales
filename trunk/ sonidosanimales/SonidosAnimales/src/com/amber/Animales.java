@@ -43,16 +43,16 @@ public class Animales extends Activity{
 	private TextView tvNombreAnimal;
 	private ImageView ivImagenAnimal;
 	private MediaPlayer mediaPlayerSonido;
-	private AccesoDatos accesoDatos;
-	private static Cursor cursorDatos;
 	private final String nombreBD = "Animales.db";
+	private AccesoDatos accesoDatos;
+	private static Cursor cursorDatos;	
 	private String sSonidoAnimal;
 	private static Boolean inicio = true;
 	private int numAnimales;
 	private String animalSeleccionado;
 	private AlertDialog alertDialogSeleccAnimal;
 	private int iAnimalSeleccionado;
-
+	private Bundle bundle = new Bundle();
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,19 +76,25 @@ public class Animales extends Activity{
 		
 		ImageView ivAdivina = (ImageView)findViewById(R.id.ivAdivinar);
 		ivAdivina.setOnClickListener(ivAdivinaCL);
-		FrameLayout flFondo = (FrameLayout)findViewById(R.id.layoutFondo);
+		FrameLayout flFondo = (FrameLayout)findViewById(R.id.frameFondoPrincipal);
 		
 		if (inicio == true){
 			try{
 				inicioDatos();
 			}catch (Exception e) {
-
+				Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
 			}
 		}else{
-			flFondo.setBackgroundResource(OpcionesGenerales.fondo);
+			
 			llenaObjetos();
 			
 		}
+		bundle = getIntent().getExtras();
+		if (bundle != null){
+			int resId = bundle.getInt("resId");
+			flFondo.setBackgroundResource(resId);
+		}
+		
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -97,7 +103,7 @@ public class Animales extends Activity{
 	    	   inicio = true; 
 	           Intent intent = new Intent();
 	           intent.putExtra("numAnimales", numAnimales);
-	           Log.i("Numero", Integer.toString(numAnimales));
+	           //Log.i("Numero", Integer.toString(numAnimales));
 	           intent.setClass(Animales.this, Configuracion.class);
 	           startActivity(intent);
 	    	   return true; 
@@ -119,14 +125,7 @@ public class Animales extends Activity{
 
 	
 
-	protected void onDestroy() {
-		super.onDestroy();
-	}
 
-	protected void onStop() {
-		super.onStop();
-		
-	}
 	//Men�
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
@@ -187,12 +186,15 @@ public class Animales extends Activity{
 		accesoDatos.abrirBase();
 		accesoDatos.creaTabla();
 		accesoDatos.insertaDatos("animal", this);	
+		//startManagingCursor(cursorDatos);
 		cursorDatos = accesoDatos.seleccionaDatos("animal");
+		//startManagingCursor(cursorDatos);
 		numAnimales = cursorDatos.getCount();
 		if (cursorDatos.moveToFirst()){
 			llenaObjetos(); 
 		}
 		accesoDatos.cierraBase();
+		
 		inicio = false;
 	}
 	
@@ -235,6 +237,7 @@ public class Animales extends Activity{
     	ivImagenAnimal.setImageDrawable(drawable);	
     	//sonido
     	sonido(sSonidoAnimal);
+    	//numAnimales = cursorDatos.getCount();
 
 	}
 	
