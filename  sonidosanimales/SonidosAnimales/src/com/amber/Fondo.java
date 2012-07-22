@@ -109,7 +109,11 @@ public class Fondo extends ListActivity{
         
         
        int resId = getResources().getIdentifier(fondo.getImagen() , "drawable", getPackageName());
-       OpcionesGenerales.fondo = resId;
+       //OpcionesGenerales.fondo = resId;
+       Intent intent = new Intent();
+       intent.putExtra("resId", resId);
+       intent.setClass(Fondo.this, Animales.class);
+       startActivity(intent);
        //Resources res = getResources();
        //Drawable drawable = res.getDrawable(resId);
        //ivFondoAplicacion.setBackgroundDrawable(drawable);

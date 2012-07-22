@@ -2,12 +2,11 @@ package com.amber.utils;
 
 public class OpcionesGenerales {
 	private String listaOpciones[] = new String[]{
-			"NÃºmero de animales (adivinar)",
+			"Número de animales (adivinar)",
 			"Cambiar fondo"
 	};
 	
-	public static int numeroAnimales = 4;
-	public static int fondo;
+	public static int numeroAnimales = 3;
 
 	public String[] getListaOpciones() {
 		return listaOpciones;
