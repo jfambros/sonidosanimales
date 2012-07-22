@@ -14,9 +14,9 @@
             </intent-filter>
         </activity>
 	<activity android:name="Animales"></activity>
-	<activity android:name="Adivina"></activity>
-	<activity android:name="AdivinaLista"></activity>
-	<activity android:name="Configuracion"></activity>
-	<activity android:name="Fondo"></activity>				
+	<activity android:name="Adivina" android:label="Adivina el animal"></activity>
+	<activity android:name="AdivinaLista" android:label="Adivina el animal"></activity>
+	<activity android:name="Configuracion" android:label="Configuración"></activity>
+	<activity android:name="Fondo" android:label="Selección de fondo"></activity>				
     </application>
 </manifest>

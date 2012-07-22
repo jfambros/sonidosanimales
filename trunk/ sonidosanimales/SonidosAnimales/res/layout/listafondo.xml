@@ -39,20 +39,12 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:src="@drawable/inicio48x48" />
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="        " />
-			<ImageView
-				android:id="@+id/ivMenuFondoLista"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content" 
-				android:src="@drawable/menu48x48"/>
+			
 						
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="        " />
+				android:text="" />
 			</TableRow>
 			</TableLayout>
 		</LinearLayout>
@@ -65,7 +57,7 @@
 	
   <TextView 
   android:id="@+id/tvFilaBFondoLista"
-  android:text=" "
+  android:text="Selecciona un fondo para la pantalla principal"
   android:layout_below="@id/norteFondoLista"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"

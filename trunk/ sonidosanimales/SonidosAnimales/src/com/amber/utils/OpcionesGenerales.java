@@ -7,6 +7,7 @@ public class OpcionesGenerales {
 	};
 	
 	public static int numeroAnimales = 3;
+	//public static int numeroTotalAnimales;
 
 	public String[] getListaOpciones() {
 		return listaOpciones;
