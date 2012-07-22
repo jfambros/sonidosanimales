@@ -53,6 +53,8 @@ public class Animales extends Activity{
 	private AlertDialog alertDialogSeleccAnimal;
 	private int iAnimalSeleccionado;
 	private Bundle bundle = new Bundle();
+	
+	
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -237,7 +239,7 @@ public class Animales extends Activity{
     	ivImagenAnimal.setImageDrawable(drawable);	
     	//sonido
     	sonido(sSonidoAnimal);
-    	//numAnimales = cursorDatos.getCount();
+    	numAnimales = cursorDatos.getCount();
 
 	}
 	

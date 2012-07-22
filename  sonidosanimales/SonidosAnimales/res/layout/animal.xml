@@ -100,15 +100,23 @@
 			<RelativeLayout
 			android:layout_width="fill_parent"
 			android:orientation="vertical" android:layout_height="match_parent">
-			  <ImageView android:layout_height="wrap_content" 
-			  android:layout_width="wrap_content" 
-			  android:src="@drawable/abeja" 
-			  android:id="@+id/ivImagenAnimal"
-			  android:layout_centerInParent="true"
 
-			  android:scaleType="fitXY"
-			 
-			    />
+			<ViewFlipper
+			    android:id="@+id/viewflipper"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_centerHorizontal="true"
+			    android:layout_centerVertical="true" >
+
+			    <ImageView
+			        android:id="@+id/ivImagenAnimal"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_centerInParent="true"
+			        android:scaleType="fitXY"
+			        android:src="@drawable/abeja" />
+			</ViewFlipper>
+
 			   </RelativeLayout>
 		    </FrameLayout>
 </RelativeLayout>	 
