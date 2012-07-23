@@ -39,14 +39,20 @@ public class AdivinaLista  extends ListActivity{
 	private MediaPlayer mediaPlayerSonido;
 	private int numAnimales = OpcionesGenerales.numeroAnimales; 
 	private ListaConImagenes adaptador;
+	private Bundle bundle = new Bundle();
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
 		try{
+			
+			
 			setContentView(R.layout.listaadivina);		
-			obtenerAnimales(numAnimales);			
+			obtenerAnimales(numAnimales);
+			
+			bundle = getIntent().getExtras();
+			
 			ImageView ivSonido = (ImageView)findViewById(R.id.ivSonidoAdivinaLista);
 			ivSonido.setOnClickListener(ivSonidoCL);
 			
@@ -95,6 +101,7 @@ private OnClickListener tvMensajeAdivinaCL = new OnClickListener() {
 				mediaPlayerSonido.release();
 			}
 			Intent intent = new Intent();
+			intent.putExtra("resId", bundle.getInt("resId"));
 			intent.setClass(AdivinaLista.this, Animales.class);
 			startActivity(intent); 
 		}

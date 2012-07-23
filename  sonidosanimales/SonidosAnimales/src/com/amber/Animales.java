@@ -7,7 +7,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -19,14 +18,16 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -35,11 +36,12 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.amber.utils.AccesoDatos;
-import com.amber.utils.OpcionesGenerales;
+import com.amber.utils.DFondo;
 
-public class Animales extends Activity{
+public class Animales extends Activity implements android.view.GestureDetector.OnGestureListener{
 	private TextView tvNombreAnimal;
 	private ImageView ivImagenAnimal;
 	private MediaPlayer mediaPlayerSonido;
@@ -53,8 +55,10 @@ public class Animales extends Activity{
 	private AlertDialog alertDialogSeleccAnimal;
 	private int iAnimalSeleccionado;
 	private Bundle bundle = new Bundle();
+	private int resId;
 	
-	
+	private ViewFlipper viewFlipper = null;
+	private GestureDetector gestureDetector = null;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -80,6 +84,9 @@ public class Animales extends Activity{
 		ivAdivina.setOnClickListener(ivAdivinaCL);
 		FrameLayout flFondo = (FrameLayout)findViewById(R.id.frameFondoPrincipal);
 		
+		viewFlipper = (ViewFlipper)findViewById(R.id.viewflipper);
+		gestureDetector = new GestureDetector(this);
+		
 		if (inicio == true){
 			try{
 				inicioDatos();
@@ -93,7 +100,7 @@ public class Animales extends Activity{
 		}
 		bundle = getIntent().getExtras();
 		if (bundle != null){
-			int resId = bundle.getInt("resId");
+			resId = bundle.getInt("resId");
 			flFondo.setBackgroundResource(resId);
 		}
 		
@@ -105,7 +112,8 @@ public class Animales extends Activity{
 	    	   inicio = true; 
 	           Intent intent = new Intent();
 	           intent.putExtra("numAnimales", numAnimales);
-	           //Log.i("Numero", Integer.toString(numAnimales));
+	           intent.putExtra("resId", resId);
+	           
 	           intent.setClass(Animales.this, Configuracion.class);
 	           startActivity(intent);
 	    	   return true; 
@@ -176,6 +184,9 @@ public class Animales extends Activity{
 		
 		public void onClick(View v) {
 			Intent intent = new Intent();
+			if (resId == 0)
+				resId = idJirafa();
+			intent.putExtra("resId", resId);
 			intent.setClass(Animales.this, AdivinaLista.class);
 			startActivity(intent);	
 			
@@ -339,6 +350,10 @@ public class Animales extends Activity{
 		alertDialogSeleccAnimal.show();
 	}
 	
+	private int idJirafa(){
+		return getResources().getIdentifier("fjirafa_fondomagua" , "drawable", getPackageName());
+	}
+	
 	private void acercaDe(){
 		AlertDialog.Builder alert = new AlertDialog.Builder(Animales.this);
 		
@@ -351,11 +366,69 @@ public class Animales extends Activity{
 		
 		alert.setTitle("Acerca de");
 		alert.setMessage("Sonidos de animales desarrollado por AmBerSoft \n" +
-				"Imagen de inicio y presentación tomadas de http://focaclipart.net23.net/ \n" +
-				"Algunas imágenes tomadas de http://focaclipart.net23.net/ ");
+				"\nAlgunas im�genes tomadas de http://focaclipart.net23.net/ ");
 		alert.setPositiveButton("Aceptar", aceptar);
 		alert.show(); 
 	}
+
+	public boolean onDown(MotionEvent arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean onFling(MotionEvent arg0, MotionEvent arg1, float arg2,
+			float arg3) {
+		if (arg0.getX() - arg1.getX() > 120)  
+        {  
+            
+            this.viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this,  
+                    R.anim.push_left_in));  
+            this.viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this,  
+                    R.anim.push_left_out));  
+            //this.viewFlipper.showNext();  
+            cambioAnimalSig();
+            return true;  
+        }
+        else if (arg0.getX() - arg1.getX() < -120)  
+        {  
+            this.viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this,  
+                    R.anim.push_right_in));  
+            this.viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this,  
+                    R.anim.push_right_out));  
+            //this.viewFlipper.showPrevious();
+            cambioAnimalAnt();
+            return true;  
+        }  
+		return true;
+	}
+
+	public void onLongPress(MotionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean onScroll(MotionEvent arg0, MotionEvent arg1, float arg2,
+			float arg3) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void onShowPress(MotionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean onSingleTapUp(MotionEvent arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		// TODO Auto-generated method stub
+		return this.gestureDetector.onTouchEvent(event);
+	}
+	
 	
 	
 }
