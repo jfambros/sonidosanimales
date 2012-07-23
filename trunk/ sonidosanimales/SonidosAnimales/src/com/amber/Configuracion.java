@@ -39,7 +39,6 @@ public class Configuracion extends ListActivity{
 		bundle = getIntent().getExtras();
 		numAnimales = bundle.getInt("numAnimales");
 		
-		
 		listaOpciones.setOnItemClickListener(listaOpcionesCL);
 	}
 	
@@ -86,10 +85,14 @@ public class Configuracion extends ListActivity{
 			if (etNumAnimales.getText().length() != 0 && (numero >= 2 && numero <=numAnimales)){
 				OpcionesGenerales.numeroAnimales = Integer.parseInt(etNumAnimales.getText().toString());
 				alertDialog.cancel();
-				Toast.makeText(Configuracion.this, Integer.toString(OpcionesGenerales.numeroAnimales), Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent();
+				intent.putExtra("resId", bundle.getInt("resId"));
+				intent.setClass(Configuracion.this, AdivinaLista.class);
+				startActivity(intent);
+				//Toast.makeText(Configuracion.this, Integer.toString(OpcionesGenerales.numeroAnimales), Toast.LENGTH_SHORT).show();
 			}
 			else{
-				Toast.makeText(Configuracion.this, "Revisa el nÃºmero capturado", Toast.LENGTH_SHORT).show();
+				Toast.makeText(Configuracion.this, "Revisa el número capturado", Toast.LENGTH_SHORT).show();
 			}			
 			 
 		}
