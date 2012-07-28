@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Datos>
 	<Fondos>
-	    <fondo>
-	    	<nombreFondo>Jirafa</nombreFondo>
-	    	<imagenFondo>fjirafa_fondomagua</imagenFondo>    
-	    </fondo>
-	    <fondo>
-	    	<nombreFondo>Arbol</nombreFondo>
-	    	<imagenFondo>farbolmagua</imagenFondo>    
-	    </fondo>
+	    
 	    <fondo>
 	    	<nombreFondo>Agua</nombreFondo>
 	    	<imagenFondo>ffondoagua</imagenFondo>    
 	    </fondo>
+		<fondo>
+	    	<nombreFondo>Arbol</nombreFondo>
+	    	<imagenFondo>farbolmagua</imagenFondo>    
+	    </fondo>	    
 	    <fondo>
-	    	<nombreFondo>Tucán</nombreFondo>
-	    	<imagenFondo>ftucanmagua</imagenFondo>    
+	    	<nombreFondo>Paisaje</nombreFondo>
+	    	<imagenFondo>paisaje1magua</imagenFondo>    
+	    </fondo>	    
+	    <fondo>
+	    	<nombreFondo>Paisaje 2</nombreFondo>
+	    	<imagenFondo>paisaje2magua</imagenFondo>    
 	    </fondo>	    	    
 	</Fondos>
 </Datos>	

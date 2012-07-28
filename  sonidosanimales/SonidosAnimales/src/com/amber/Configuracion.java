@@ -28,6 +28,7 @@ public class Configuracion extends ListActivity{
 	private EditText etNumAnimales;
 	private AlertDialog.Builder builder;
 	private AlertDialog alertDialog;
+	
 
 	protected void onCreate(Bundle savedInstanceState) {
 

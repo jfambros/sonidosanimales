@@ -185,7 +185,7 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 		public void onClick(View v) {
 			Intent intent = new Intent();
 			if (resId == 0)
-				resId = idJirafa();
+				resId = idPrimerFondo();
 			intent.putExtra("resId", resId);
 			intent.setClass(Animales.this, AdivinaLista.class);
 			startActivity(intent);	
@@ -209,6 +209,7 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 		accesoDatos.cierraBase();
 		
 		inicio = false;
+		resId = idPrimerFondo();
 	}
 	
 	private void cambioAnimalSig(){
@@ -350,8 +351,8 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 		alertDialogSeleccAnimal.show();
 	}
 	
-	private int idJirafa(){
-		return getResources().getIdentifier("fjirafa_fondomagua" , "drawable", getPackageName());
+	private int idPrimerFondo(){
+		return getResources().getIdentifier("paisaje1magua" , "drawable", getPackageName());
 	}
 	
 	private void acercaDe(){

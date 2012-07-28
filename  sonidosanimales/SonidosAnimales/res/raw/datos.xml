@@ -32,8 +32,18 @@
 		<idioma>es</idioma>
 	</animal>
 	<animal>
+		<nombre>Delfín</nombre>
+		<drawableSonido>delfin</drawableSonido>
+		<idioma>es</idioma>
+	</animal>	
+	<animal>
 		<nombre>Elefante</nombre>
 		<drawableSonido>elefante</drawableSonido>
+		<idioma>es</idioma>
+	</animal>
+	<animal>
+		<nombre>Foca</nombre>
+		<drawableSonido>foca</drawableSonido>
 		<idioma>es</idioma>
 	</animal>
 	<animal>
