@@ -96,7 +96,7 @@
 		  android:id="@+id/frameFondoPrincipal"
 		  android:layout_width="fill_parent"
 		  android:layout_height="fill_parent"
-		  android:background="@drawable/fjirafa_fondomagua">
+		  android:background="@drawable/paisaje1magua">
 			<RelativeLayout
 			android:layout_width="fill_parent"
 			android:orientation="vertical" android:layout_height="match_parent">
