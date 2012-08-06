@@ -6,6 +6,11 @@
 		<drawableSonido>abeja</drawableSonido>
 		<idioma>es</idioma>
 	</animal>
+   	<animal>
+		<nombre>Águila</nombre>
+		<drawableSonido>aguila</drawableSonido>
+		<idioma>es</idioma>
+	</animal>
 	<animal>
 		<nombre>Ave/Pájaro</nombre>
 		<drawableSonido>ave</drawableSonido>
@@ -22,10 +27,20 @@
 		<idioma>es</idioma>
 	</animal>
 	<animal>
+		<nombre>Burro / Asno</nombre>
+		<drawableSonido>burro</drawableSonido>
+		<idioma>es</idioma>
+	</animal>	
+	<animal>
 		<nombre>Caballo</nombre>
 		<drawableSonido>caballo</drawableSonido>
 		<idioma>es</idioma>
 	</animal>
+	<animal>
+		<nombre>Cabra</nombre>
+		<drawableSonido>cabra</drawableSonido>
+		<idioma>es</idioma>
+	</animal>	
 	<animal>
 		<nombre>Cerdo</nombre>
 		<drawableSonido>cerdo</drawableSonido>
@@ -56,6 +71,11 @@
 		<drawableSonido>gato</drawableSonido>
 		<idioma>es</idioma>
 	</animal>
+	<animal>
+		<nombre>Grillo</nombre>
+		<drawableSonido>grillo</drawableSonido>
+		<idioma>es</idioma>
+	</animal>	
 	<animal>
 		<nombre>Guajolote / Pavo</nombre>
 		<drawableSonido>guajolote</drawableSonido>
@@ -101,7 +121,6 @@
 		<drawableSonido>tigre</drawableSonido>
 		<idioma>es</idioma>
 	</animal>  
-
 	<animal>
 		<nombre>Vaca</nombre>
 		<drawableSonido>vaca</drawableSonido>
