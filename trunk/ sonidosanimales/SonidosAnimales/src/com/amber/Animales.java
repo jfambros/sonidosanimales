@@ -188,8 +188,9 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 				resId = idPrimerFondo();
 			intent.putExtra("resId", resId);
 			intent.setClass(Animales.this, AdivinaLista.class);
+			mediaPlayerSonido.release();
 			startActivity(intent);	
-			
+			finish();
 		}
 	};
 	
