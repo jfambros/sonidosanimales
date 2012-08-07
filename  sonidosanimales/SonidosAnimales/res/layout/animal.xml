@@ -38,25 +38,25 @@
 				android:id="@+id/ivAnterior"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:src="@drawable/anterior48x48" />
+				android:src="@drawable/ante48x48" />
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="          " />
+				android:text="@string/espacio10" />
 			<ImageView
 				android:id="@+id/ivMenu"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content" 
-				android:src="@drawable/menu48x48"/>
+				android:src="@drawable/configura48x48"/>
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="          " />
+				android:text="@string/espacio10" />
 			<ImageView
 				android:id="@+id/ivSiguiente"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:src="@drawable/siguiente48x48" />
+				android:src="@drawable/sigui48x48" />
 			</TableRow>
 			</TableLayout>
 		</LinearLayout>
@@ -147,18 +147,15 @@
 						android:layout_height="wrap_content"
 						android:orientation="horizontal">					
 							<ImageView android:id="@+id/ivAleatorio" 
-							android:src="@drawable/aleatorio48x48"
-							android:layout_width="48px"
-							android:layout_height="48px"
+							android:src="@drawable/aaleatorio48x48"
 							android:layout_gravity="center_horizontal"/>
 							<TextView
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
-							android:text="          " />
+							android:text="@string/espacio10" />
 							<ImageView android:id="@+id/ivAdivinar" 
 							android:src="@drawable/adivinar48x48"
-							android:layout_width="48px"
-							android:layout_height="48px"/>	
+/>	
 					</TableRow>
 				</TableLayout>			
 			</LinearLayout>

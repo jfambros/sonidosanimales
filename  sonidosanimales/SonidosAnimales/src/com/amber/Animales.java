@@ -10,6 +10,7 @@ import org.xml.sax.SAXException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -18,6 +19,7 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -39,7 +41,6 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.amber.utils.AccesoDatos;
-import com.amber.utils.DFondo;
 
 public class Animales extends Activity implements android.view.GestureDetector.OnGestureListener{
 	private TextView tvNombreAnimal;
@@ -431,6 +432,9 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 		return this.gestureDetector.onTouchEvent(event);
 	}
 	
+	private void esTelefono(Context context){
+
+	}
 	
 	
 }
