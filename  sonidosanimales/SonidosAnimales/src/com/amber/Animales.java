@@ -85,6 +85,9 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 		ivAdivina.setOnClickListener(ivAdivinaCL);
 		FrameLayout flFondo = (FrameLayout)findViewById(R.id.frameFondoPrincipal);
 		
+		ImageView ivGuardarSonido = (ImageView)findViewById(R.id.ivGuardarSonido);
+		ivGuardarSonido.setOnClickListener(ivGuardarSonidoCL);
+		
 		viewFlipper = (ViewFlipper)findViewById(R.id.viewflipper);
 		gestureDetector = new GestureDetector(this);
 		
@@ -195,6 +198,20 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 		}
 	};
 	
+	private OnClickListener ivGuardarSonidoCL = new OnClickListener() {
+		
+		public void onClick(View v) {
+			EsTelefono esTelefono = new EsTelefono();
+			if (esTelefono.verifica(Animales.this) == true){
+				guardarSonidoTelefono();
+			}
+			else
+			{
+				guardarSonidoNoTelefono();
+			}
+		}
+	};
+	
 	private void inicioDatos() throws SAXException, IOException, ParserConfigurationException{
 
 		accesoDatos = new AccesoDatos(getApplicationContext(), nombreBD);
@@ -273,15 +290,6 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 	    	mediaPlayerSonido = null;
 	    	mediaPlayerSonido = new MediaPlayer();
 	    	mediaPlayerSonido = MediaPlayer.create(Animales.this, resIDSonido);
-	    	/*
-	    	try {
-				mediaPlayerSonido.prepare();
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			*/
 	    	mediaPlayerSonido.start();
 	    	mediaPlayerSonido.setLooping(false);
 	    	mediaPlayerSonido.setOnCompletionListener(completionList);
@@ -293,12 +301,6 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 		numero = (int)(r.nextInt(cursorDatos.getCount()));
 		cursorDatos.moveToPosition(numero);
 		llenaObjetos();
-	}
-	
-	private void aleatorioImagenFondo(int numero){
-		Random r = new Random();
-		numero = (int)(r.nextInt(numero));	
-		Toast.makeText(Animales.this, Integer.toString(numero+1), Toast.LENGTH_SHORT).show();
 	}
 	
 	private void buscaAnimal(){
@@ -375,7 +377,6 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 	}
 
 	public boolean onDown(MotionEvent arg0) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -388,7 +389,6 @@ public class Animales extends Activity implements android.view.GestureDetector.O
                     R.anim.push_left_in));  
             this.viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this,  
                     R.anim.push_left_out));  
-            //this.viewFlipper.showNext();  
             cambioAnimalSig();
             return true;  
         }
@@ -398,7 +398,6 @@ public class Animales extends Activity implements android.view.GestureDetector.O
                     R.anim.push_right_in));  
             this.viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this,  
                     R.anim.push_right_out));  
-            //this.viewFlipper.showPrevious();
             cambioAnimalAnt();
             return true;  
         }  
@@ -406,35 +405,79 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 	}
 
 	public void onLongPress(MotionEvent arg0) {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 	public boolean onScroll(MotionEvent arg0, MotionEvent arg1, float arg2,
 			float arg3) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public void onShowPress(MotionEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	public boolean onSingleTapUp(MotionEvent arg0) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		// TODO Auto-generated method stub
 		return this.gestureDetector.onTouchEvent(event);
 	}
 	
-	private void esTelefono(Context context){
+	public void guardarSonidoTelefono(){
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(Animales.this);
+		 
+        alertDialog.setTitle("Guardar sonido...");
 
+        alertDialog.setMessage("¿Donde deseas guardar el sonido?");
+
+        alertDialog.setIcon(R.drawable.salvar22x22);
+
+        alertDialog.setPositiveButton("En memoria", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            // User pressed YES button. Write Logic Here
+            Toast.makeText(getApplicationContext(), "Memoria",
+                                Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            	setResult(RESULT_CANCELED);
+            }
+        });
+
+        alertDialog.setNeutralButton("Timbre de llamada", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            Toast.makeText(getApplicationContext(), "Timbre",
+                                Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alertDialog.show();
 	}
 	
-	
+	private void guardarSonidoNoTelefono(){
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(Animales.this);
+		 
+        alertDialog.setTitle("Guardar sonido...");
+
+        alertDialog.setMessage("El sonido se guardará en la memoria del dispositivo");
+
+        alertDialog.setIcon(R.drawable.salvar22x22);
+
+        alertDialog.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            // User pressed YES button. Write Logic Here
+            Toast.makeText(getApplicationContext(), "En memoria",
+                                Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        alertDialog.show();
+	}
 }

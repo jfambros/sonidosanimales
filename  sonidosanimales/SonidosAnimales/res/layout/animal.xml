@@ -42,7 +42,7 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="@string/espacio10" />
+				android:text="          " />
 			<ImageView
 				android:id="@+id/ivMenu"
 				android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="@string/espacio10" />
+				android:text="          " />
 			<ImageView
 				android:id="@+id/ivSiguiente"
 				android:layout_width="wrap_content"
@@ -152,10 +152,16 @@
 							<TextView
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
-							android:text="@string/espacio10" />
+							android:text="          " />
 							<ImageView android:id="@+id/ivAdivinar" 
-							android:src="@drawable/adivinar48x48"
-/>	
+							android:src="@drawable/adivinar48x48"/>
+							<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="          " />						
+							<ImageView android:id="@+id/ivGuardarSonido" 
+							android:src="@drawable/salvar48x48"/>
+															
 					</TableRow>
 				</TableLayout>			
 			</LinearLayout>
