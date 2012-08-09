@@ -4,7 +4,7 @@
       android:versionCode="1"
       android:versionName="1.0">
     <uses-sdk android:minSdkVersion="8" />
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name=".Principal"
                   android:label="@string/app_name">
@@ -13,10 +13,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-	<activity android:name="Animales"></activity>
-	<activity android:name="Adivina" android:label="Adivina el animal"></activity>
-	<activity android:name="AdivinaLista" android:label="Adivina el animal"></activity>
-	<activity android:name="Configuracion" android:label="Configuración"></activity>
-	<activity android:name="Fondo" android:label="Selección de fondo"></activity>				
+		<activity android:name="Animales"></activity>
+		<activity android:name="Adivina" android:label="Adivina el animal"></activity>
+		<activity android:name="AdivinaLista" android:label="Adivina el animal"></activity>
+		<activity android:name="Configuracion" android:label="Configuración"></activity>
+		<activity android:name="Fondo" android:label="Selección de fondo"></activity>				
     </application>
+
 </manifest>
