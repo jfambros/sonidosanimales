@@ -13,13 +13,15 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
+import android.os.Environment;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -85,8 +87,8 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 		ivAdivina.setOnClickListener(ivAdivinaCL);
 		FrameLayout flFondo = (FrameLayout)findViewById(R.id.frameFondoPrincipal);
 		
-		ImageView ivGuardarSonido = (ImageView)findViewById(R.id.ivGuardarSonido);
-		ivGuardarSonido.setOnClickListener(ivGuardarSonidoCL);
+		//ImageView ivGuardarSonido = (ImageView)findViewById(R.id.ivGuardarSonido);
+		//ivGuardarSonido.setOnClickListener(ivGuardarSonidoCL);
 		
 		viewFlipper = (ViewFlipper)findViewById(R.id.viewflipper);
 		gestureDetector = new GestureDetector(this);
@@ -197,7 +199,7 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 			finish();
 		}
 	};
-	
+	/*
 	private OnClickListener ivGuardarSonidoCL = new OnClickListener() {
 		
 		public void onClick(View v) {
@@ -211,7 +213,7 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 			}
 		}
 	};
-	
+	*/
 	private void inicioDatos() throws SAXException, IOException, ParserConfigurationException{
 
 		accesoDatos = new AccesoDatos(getApplicationContext(), nombreBD);
@@ -426,7 +428,7 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 	public boolean onTouchEvent(MotionEvent event) {
 		return this.gestureDetector.onTouchEvent(event);
 	}
-	
+	/*
 	public void guardarSonidoTelefono(){
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(Animales.this);
 		 
@@ -438,9 +440,7 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 
         alertDialog.setPositiveButton("En memoria", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-            // User pressed YES button. Write Logic Here
-            Toast.makeText(getApplicationContext(), "Memoria",
-                                Toast.LENGTH_SHORT).show();
+            	copiar(getApplicationContext());
             }
         });
 
@@ -471,13 +471,56 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 
         alertDialog.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-            // User pressed YES button. Write Logic Here
-            Toast.makeText(getApplicationContext(), "En memoria",
-                                Toast.LENGTH_SHORT).show();
+            	copiar(getApplicationContext());
             }
         });
-
-
-        alertDialog.show();
+       alertDialog.show();
 	}
+	*/
+	/*
+	private void copiar(Context context){	
+		AssetManager assetManager = getAssets();
+        String[] files = null;
+        Log.i("Mensaje", "Copiar");
+        try {
+            files = assetManager.list("file");
+        } catch (IOException e) {
+            Log.e("tag", e.getMessage());
+        }
+        for(String filename : files) {
+            Log.i("File name => ",filename);
+        }
+		/*
+		File dest = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
+		
+		OutputStream out = null;
+		InputStream in = context.getResources().openRawResource(R.raw.abeja);
+		Log.i("Archivo", in.toString());
+		try {
+			out = new FileOutputStream(new File(dest, "abeja.ogg"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		byte[] buf = new byte[1024];
+		int len;
+		try {
+		    while ( (len = in.read(buf, 0, buf.length)) != -1){
+		         out.write(buf, 0, len);
+		    }
+		}
+		catch (Exception e) {
+		}
+		 finally {
+		    // Ensure the Streams are closed:
+		    try {
+				in.close(); 
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}		   
+		}
+		Toast.makeText(Animales.this, dest.toString(), Toast.LENGTH_SHORT).show();
+		*/
+	
+	
 }
