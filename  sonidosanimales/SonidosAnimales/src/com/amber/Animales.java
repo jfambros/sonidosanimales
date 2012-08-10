@@ -1,6 +1,11 @@
 package com.amber;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.Random;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -10,17 +15,18 @@ import org.xml.sax.SAXException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
-import android.content.Context;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -58,7 +64,7 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 	private AlertDialog alertDialogSeleccAnimal;
 	private int iAnimalSeleccionado;
 	private Bundle bundle = new Bundle();
-	private int resId;
+	private int resIdG;
 	
 	private ViewFlipper viewFlipper = null;
 	private GestureDetector gestureDetector = null;
@@ -87,8 +93,8 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 		ivAdivina.setOnClickListener(ivAdivinaCL);
 		FrameLayout flFondo = (FrameLayout)findViewById(R.id.frameFondoPrincipal);
 		
-		//ImageView ivGuardarSonido = (ImageView)findViewById(R.id.ivGuardarSonido);
-		//ivGuardarSonido.setOnClickListener(ivGuardarSonidoCL);
+		ImageView ivGuardarSonido = (ImageView)findViewById(R.id.ivGuardarSonido);
+		ivGuardarSonido.setOnClickListener(ivGuardarSonidoCL);
 		
 		viewFlipper = (ViewFlipper)findViewById(R.id.viewflipper);
 		gestureDetector = new GestureDetector(this);
@@ -106,8 +112,8 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 		}
 		bundle = getIntent().getExtras();
 		if (bundle != null){
-			resId = bundle.getInt("resId");
-			flFondo.setBackgroundResource(resId);
+			resIdG = bundle.getInt("resId");
+			flFondo.setBackgroundResource(resIdG);
 		}
 		
 	}
@@ -118,7 +124,7 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 	    	   inicio = true; 
 	           Intent intent = new Intent();
 	           intent.putExtra("numAnimales", numAnimales);
-	           intent.putExtra("resId", resId);
+	           intent.putExtra("resId", resIdG);
 	           
 	           intent.setClass(Animales.this, Configuracion.class);
 	           startActivity(intent);
@@ -190,16 +196,16 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 		
 		public void onClick(View v) {
 			Intent intent = new Intent();
-			if (resId == 0)
-				resId = idPrimerFondo();
-			intent.putExtra("resId", resId);
+			if (resIdG == 0)
+				resIdG = idPrimerFondo();
+			intent.putExtra("resId", resIdG);
 			intent.setClass(Animales.this, AdivinaLista.class);
 			mediaPlayerSonido.release();
 			startActivity(intent);	
 			finish();
 		}
 	};
-	/*
+	
 	private OnClickListener ivGuardarSonidoCL = new OnClickListener() {
 		
 		public void onClick(View v) {
@@ -213,7 +219,7 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 			}
 		}
 	};
-	*/
+	
 	private void inicioDatos() throws SAXException, IOException, ParserConfigurationException{
 
 		accesoDatos = new AccesoDatos(getApplicationContext(), nombreBD);
@@ -230,7 +236,7 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 		accesoDatos.cierraBase();
 		
 		inicio = false;
-		resId = idPrimerFondo();
+		resIdG = idPrimerFondo();
 	}
 	
 	private void cambioAnimalSig(){
@@ -428,7 +434,7 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 	public boolean onTouchEvent(MotionEvent event) {
 		return this.gestureDetector.onTouchEvent(event);
 	}
-	/*
+	
 	public void guardarSonidoTelefono(){
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(Animales.this);
 		 
@@ -440,7 +446,8 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 
         alertDialog.setPositiveButton("En memoria", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-            	copiar(getApplicationContext());
+            	String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).toString()+"/";
+            	copiar(path, false);
             }
         });
 
@@ -452,8 +459,9 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 
         alertDialog.setNeutralButton("Timbre de llamada", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-            Toast.makeText(getApplicationContext(), "Timbre",
-                                Toast.LENGTH_SHORT).show();
+            	Toast.makeText(getApplicationContext(), "Timbre", Toast.LENGTH_SHORT).show();
+            	String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES).toString()+"/";
+            	copiar(path, true);
             }
         });
 
@@ -471,56 +479,68 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 
         alertDialog.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-            	copiar(getApplicationContext());
+            	String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).toString()+"/";
+            	copiar(path, false);
+            	Toast.makeText(Animales.this,"Sonido copiado", Toast.LENGTH_SHORT).show();
             }
         });
        alertDialog.show();
 	}
-	*/
-	/*
-	private void copiar(Context context){	
-		AssetManager assetManager = getAssets();
-        String[] files = null;
-        Log.i("Mensaje", "Copiar");
-        try {
-            files = assetManager.list("file");
-        } catch (IOException e) {
-            Log.e("tag", e.getMessage());
-        }
-        for(String filename : files) {
-            Log.i("File name => ",filename);
-        }
-		/*
-		File dest = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
+	
+	
+	private void copiar(String path, boolean tel){	
+		byte[] buffer=null;
+		int resID = getBaseContext().getResources().getIdentifier(sSonidoAnimal , "raw", getPackageName()); 
 		
-		OutputStream out = null;
-		InputStream in = context.getResources().openRawResource(R.raw.abeja);
-		Log.i("Archivo", in.toString());
-		try {
-			out = new FileOutputStream(new File(dest, "abeja.ogg"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		byte[] buf = new byte[1024];
-		int len;
-		try {
-		    while ( (len = in.read(buf, 0, buf.length)) != -1){
-		         out.write(buf, 0, len);
-		    }
-		}
-		catch (Exception e) {
-		}
-		 finally {
-		    // Ensure the Streams are closed:
-		    try {
-				in.close(); 
-				out.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}		   
-		}
-		Toast.makeText(Animales.this, dest.toString(), Toast.LENGTH_SHORT).show();
-		*/
+	   	 InputStream fIn = getBaseContext().getResources().openRawResource(resID);
+	   	 int size=0;
+	
+	   	 try {
+	   	  size = fIn.available();
+	   	  buffer = new byte[size];
+	   	  fIn.read(buffer);
+	   	  fIn.close();
+	   	 } catch (IOException e) {
+	   		 Log.e("Error IO", e.toString());
+	   	 }
+	
+	 
+	   	 String filename=sSonidoAnimal+".ogg";
+	
+	   	 boolean exists = (new File(path)).exists();
+	   	 if (!exists){new File(path).mkdirs();}
+	
+	   	 FileOutputStream save;
+	   	 try {
+	   	  save = new FileOutputStream(path+filename);
+	   	  save.write(buffer);
+	   	  save.flush();
+	   	  save.close();
+	   	 } catch (FileNotFoundException e) {
+	   		 Log.e("Error IO", e.toString());
+	   	 } catch (IOException e) {
+	   		 Log.e("Error IO", e.toString());
+	   	 }
+	   	 
+	   	 //Si es teléfono
+	   	 if (tel == true){
+	   		sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://"+path+filename)));
+
+		   	 File k = new File(path, filename);
+	
+		   	 ContentValues values = new ContentValues();
+		   	 values.put(MediaStore.MediaColumns.DATA, k.getAbsolutePath());
+		   	 values.put(MediaStore.MediaColumns.TITLE, "Sonido "+sSonidoAnimal);
+		   	 values.put(MediaStore.MediaColumns.MIME_TYPE, "audio/ogg");
+		   	 values.put(MediaStore.Audio.Media.ARTIST, "");
+		   	 values.put(MediaStore.Audio.Media.IS_RINGTONE, true);
+		   	 values.put(MediaStore.Audio.Media.IS_NOTIFICATION, true);
+		   	 values.put(MediaStore.Audio.Media.IS_ALARM, false);
+		   	 values.put(MediaStore.Audio.Media.IS_MUSIC, false);
+		   	 this.getContentResolver().insert(MediaStore.Audio.Media.getContentUriForPath(k.getAbsolutePath()), values);	   		 
+	   	 }
+	   	 
+	}	
 	
 	
 }
