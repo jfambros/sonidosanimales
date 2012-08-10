@@ -522,7 +522,7 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 	   		 Log.e("Error IO", e.toString());
 	   	 }
 	   	 
-	   	 //Si es teléfono
+	   	 //Si es teléfono, mejorar
 	   	 if (tel == true){
 	   		sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://"+path+filename)));
 
