@@ -155,14 +155,14 @@
 							android:text="          " />
 							<ImageView android:id="@+id/ivAdivinar" 
 							android:src="@drawable/adivinar48x48"/>
-							<!-- 
+							 
 							<TextView
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:text="          " />						
 							<ImageView android:id="@+id/ivGuardarSonido" 
 							android:src="@drawable/salvar48x48"/>
-							 -->
+							 
 					</TableRow>
 				</TableLayout>			
 			</LinearLayout>
