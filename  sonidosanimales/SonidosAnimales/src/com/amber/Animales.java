@@ -23,6 +23,7 @@ import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -148,7 +149,7 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 	
 
 
-	//Menï¿½
+	//Menú
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.menu, menu);
@@ -537,7 +538,8 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 		   	 values.put(MediaStore.Audio.Media.IS_NOTIFICATION, true);
 		   	 values.put(MediaStore.Audio.Media.IS_ALARM, false);
 		   	 values.put(MediaStore.Audio.Media.IS_MUSIC, false);
-		   	 this.getContentResolver().insert(MediaStore.Audio.Media.getContentUriForPath(k.getAbsolutePath()), values);	   		 
+		   	 Uri nuevoUri = this.getContentResolver().insert(MediaStore.Audio.Media.getContentUriForPath(k.getAbsolutePath()), values);
+		   	 RingtoneManager.setActualDefaultRingtoneUri(Animales.this, RingtoneManager.TYPE_RINGTONE, nuevoUri);
 	   	 }
 	   	 
 	}	
