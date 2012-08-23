@@ -28,6 +28,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -441,7 +442,7 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 		 
         alertDialog.setTitle("Guardar sonido...");
 
-        alertDialog.setMessage("¿Donde deseas guardar el sonido?");
+        alertDialog.setMessage("¿Ubicación para guardar el sonido?");
 
         alertDialog.setIcon(R.drawable.salvar22x22);
 
@@ -460,7 +461,7 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 
         alertDialog.setNeutralButton("Timbre de llamada", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-            	Toast.makeText(getApplicationContext(), "Timbre", Toast.LENGTH_SHORT).show();
+            	Toast.makeText(getApplicationContext(), "Se estableció el timbre de llamada", Toast.LENGTH_SHORT).show();
             	String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES).toString()+"/";
             	copiar(path, true);
             }
@@ -482,7 +483,7 @@ public class Animales extends Activity implements android.view.GestureDetector.O
             public void onClick(DialogInterface dialog, int which) {
             	String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).toString()+"/";
             	copiar(path, false);
-            	Toast.makeText(Animales.this,"Sonido copiado", Toast.LENGTH_SHORT).show();
+            	Toast.makeText(Animales.this,"Sonido guardado", Toast.LENGTH_SHORT).show();
             }
         });
        alertDialog.show();
@@ -531,15 +532,19 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 	
 		   	 ContentValues values = new ContentValues();
 		   	 values.put(MediaStore.MediaColumns.DATA, k.getAbsolutePath());
-		   	 values.put(MediaStore.MediaColumns.TITLE, "Sonido "+sSonidoAnimal);
+		   	 values.put(MediaStore.MediaColumns.TITLE, "Sonido ");
 		   	 values.put(MediaStore.MediaColumns.MIME_TYPE, "audio/ogg");
-		   	 values.put(MediaStore.Audio.Media.ARTIST, "");
 		   	 values.put(MediaStore.Audio.Media.IS_RINGTONE, true);
 		   	 values.put(MediaStore.Audio.Media.IS_NOTIFICATION, true);
 		   	 values.put(MediaStore.Audio.Media.IS_ALARM, false);
 		   	 values.put(MediaStore.Audio.Media.IS_MUSIC, false);
+
+			 Uri uri = MediaStore.Audio.Media.getContentUriForPath(k.getAbsolutePath());
+			 getContentResolver().delete(uri, MediaStore.MediaColumns.DATA + "=\"" + k.getAbsolutePath() + "\"", null);  
+
 		   	 Uri nuevoUri = this.getContentResolver().insert(MediaStore.Audio.Media.getContentUriForPath(k.getAbsolutePath()), values);
-		   	 RingtoneManager.setActualDefaultRingtoneUri(Animales.this, RingtoneManager.TYPE_RINGTONE, nuevoUri);
+		   	 RingtoneManager.setActualDefaultRingtoneUri(getApplicationContext(), RingtoneManager.TYPE_RINGTONE, nuevoUri);
+
 	   	 }
 	   	 
 	}	
