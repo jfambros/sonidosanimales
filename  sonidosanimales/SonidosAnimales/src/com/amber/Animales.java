@@ -147,9 +147,6 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 		accesoDatos.cierraBase();
 	}
 
-	
-
-
 	//Menú
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
@@ -175,7 +172,6 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 	private OnClickListener ivSiguienteCL = new OnClickListener() {
 		
 		public void onClick(View v) {
-			//aleatorioImagenFondo(3);
 			cambioAnimalSig();
 		}
 	};
@@ -380,7 +376,13 @@ public class Animales extends Activity implements android.view.GestureDetector.O
 		};
 		
 		alert.setTitle("Acerca de");
-		alert.setMessage("Sonidos de animales desarrollado por AmBerSoft \n" +
+		alert.setMessage("Sonidos de animales desarrollado por AmBerSoft \n\n" +
+				"El objetivo de la aplicación es la estimulación auditiva-visual en "+
+				"los niños(as) mediante el sonido que realiza un animal, también " +
+				"se incluye un minijuego donde se debe adivinar que animal hace " +
+				"un sonido en particular." +
+				"\nCualquier comentario, o sugerencia escribe a jfambros@gmail.com" +
+				"\n"+
 				"\nAlgunas imágenes tomadas de http://focaclipart.net23.net/ ");
 		alert.setPositiveButton("Aceptar", aceptar);
 		alert.show(); 
